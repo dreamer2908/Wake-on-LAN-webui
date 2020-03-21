@@ -48,7 +48,6 @@
                 <asp:TableCell>Action</asp:TableCell>
             </asp:TableRow>
         </asp:Table>
-        <asp:Button ID="Button1" runat="server" Text="Wake on LAN" onclick="Button1_Click" />
         <iframe id="my_iframe" style="display:none;"></iframe>
     </form>
 </body>

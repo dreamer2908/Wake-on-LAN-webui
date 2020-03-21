@@ -88,15 +88,6 @@ namespace WebApplication1
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            string mac = "6C-F0-49-68-07-00";
-            string ip = "172.21.160.244";
-            string subnet = "255.255.255.0";
-            wol.wake(mac, ip, subnet);
-            Button1.Text = "Online soon";
-        }
-
         protected void Button2_Click(object sender, EventArgs e)
         {
             string sessionId = this.Session.SessionID;
