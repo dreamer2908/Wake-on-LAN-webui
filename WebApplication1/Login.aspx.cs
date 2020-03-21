@@ -10,7 +10,7 @@ using System.DirectoryServices.AccountManagement;
 
 namespace WebApplication1
 {
-    public partial class Login_demo : System.Web.UI.Page
+    public partial class Login : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

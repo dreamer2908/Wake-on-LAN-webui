@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class Redirectpage : System.Web.UI.Page
+    public partial class Default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,6 +27,8 @@ namespace WebApplication1
             else
             {
                 label1.Text = username;
+
+                // display the manage link if it's an admin
                 LinkButton3.Enabled = LinkButton3.Visible = isAdmin;
 
                 StringBuilder sb = new StringBuilder();

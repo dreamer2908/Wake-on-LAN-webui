@@ -10,7 +10,7 @@
 namespace WebApplication1 {
     
     
-    public partial class Redirectpage {
+    public partial class Default {
         
         /// <summary>
         /// jsCode control.

@@ -10,7 +10,7 @@
 namespace WebApplication1 {
     
     
-    public partial class Login_demo {
+    public partial class Login {
         
         /// <summary>
         /// form1 control.
