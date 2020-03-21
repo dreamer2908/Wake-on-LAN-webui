@@ -13,8 +13,12 @@ namespace WebApplication1
     {
         public static int wake(string mac, string ip, string subnet)
         {
+            // clean up input to make sure it won't crash
             var macAddress = mac;
             macAddress = Regex.Replace(macAddress, "[-|:]", "");       // Remove any semicolons or minus characters present in our MAC address
+
+            ip = sanitizeIpAddress(ip);
+            subnet = sanitizeIpAddress(subnet);
 
             var sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)
             {
@@ -66,6 +70,20 @@ namespace WebApplication1
                 broadcastAddress[i] = (byte)(ipAdressBytes[i] | (subnetMaskBytes[i] ^ 255));
             }
             return new IPAddress(broadcastAddress);
+        }
+
+        public static string sanitizeIpAddress(string ip)
+        {
+            string defaultIp = "255.255.255.255";
+            try
+            {
+                IPAddress.Parse(ip);
+            }
+            catch (FormatException)
+            {
+                return defaultIp;
+            }
+            return ip;
         }
     }
 }
