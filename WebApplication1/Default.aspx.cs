@@ -17,6 +17,7 @@ namespace WebApplication1
             string sessionId = this.Session.SessionID;
             Sessions.readSession(sessionId, out Sessions.session ses);
             string username = ses.username;
+            bool isAdmin = ses.isAdmin;
 
             if (!ses.isLoggedIn)
             {
@@ -26,6 +27,8 @@ namespace WebApplication1
             else
             {
                 label1.Text = username;
+                LinkButton3.Enabled = LinkButton3.Visible = isAdmin;
+
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("<script  type='text/javascript'>");
 
@@ -99,6 +102,11 @@ namespace WebApplication1
             Sessions.deleteSession(id);
             this.Session.Abandon();
             Response.Redirect("Login.aspx");
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Manage.aspx");
         }
     }
 }

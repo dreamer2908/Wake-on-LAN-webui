@@ -37,7 +37,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <p>Logged in as <asp:Label ID="label1" runat="server" Text="Username" />.  [<asp:LinkButton ID="Button2" runat="server" Text="Log out" onclick="Button2_Click" />]</p>
+        <p>Logged in as <asp:Label ID="label1" runat="server" Text="Username" />.  [<asp:LinkButton ID="Button2" runat="server" Text="Log out" onclick="Button2_Click" />] <asp:LinkButton ID="LinkButton3" Visible="false" Enabled ="false" runat="server" Text="[Manage]" onclick="Button3_Click" /></p>
         <asp:Table ID="pcTable" runat="server" style="margin-left: 0; margin-right: auto;">
             <asp:TableRow style="font-weight: bold;">
                 <asp:TableCell>Status</asp:TableCell>

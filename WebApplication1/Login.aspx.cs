@@ -25,15 +25,28 @@ namespace WebApplication1
         protected void Button1_Click(object sender, EventArgs e)
         {
             bool isValid = false;
+            bool isAdmin = false;
 
             string username = TextBox1.Text;
             string password = TextBox2.Text;
 
             // create a "principal context" - e.g. your domain (could be machine, too)
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "PRS-VN"))
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "PRS-VN", "prsvn", "123456"))
             {
                 // validate the credentials
                 isValid = pc.ValidateCredentials(username, password, ContextOptions.Negotiate);
+
+                if (isValid)
+                {
+                    // set as admin if the user is in "Enterprise Admins" group
+                    // won't work unless a valid username and password are specified for the principal context
+                    UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(pc, "Enterprise Admins");
+                    if (user != null && user.IsMemberOf(group))
+                    {
+                        isAdmin = true;
+                    }
+                }
             }
 
             if (isValid)
@@ -50,7 +63,7 @@ namespace WebApplication1
                 //    Response.Cookies["sessionid"].Expires = DateTime.Now.AddDays(30);
                 //}
 
-                Sessions.writeSession(sessionId, true, username);
+                Sessions.writeSession(sessionId, true, username, isAdmin);
                 Response.Redirect("Default.aspx");
             }
             else
