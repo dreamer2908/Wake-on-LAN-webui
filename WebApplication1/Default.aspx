@@ -15,8 +15,24 @@
             text-align: left;
             padding: 5px;
         }
+        td img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            vertical-align: middle;
+        }
 
     </style>
+    <script type="text/javascript">
+        function autoreloadimages() {
+            var images = document.getElementsByClassName('reload');
+            for (var i = 0; i < images.length; i++) {
+                images[i].src = images[i].getAttribute("data-src") + '&rand=' + Math.random();
+            }
+        };
+        setInterval(autoreloadimages, 5000);
+    </script>
     <asp:Literal ID="jsCode" runat="server"></asp:Literal>
 </head>
 <body>

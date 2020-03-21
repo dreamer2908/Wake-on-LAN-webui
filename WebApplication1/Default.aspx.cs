@@ -51,7 +51,7 @@ namespace WebApplication1
                     TableRow row = new TableRow();
                     // icon
                     TableCell cell0 = new TableCell();
-                    cell0.Text = string.Format("<img src='Images/ok-32.png' />");
+                    cell0.Text = string.Format("<img class='reload' data-src='/api/ping?ip={0}' src='/api/ping?ip={0}' />", ip);
                     row.Cells.Add(cell0);
                     // pc name
                     TableCell cell1 = new TableCell();
@@ -74,8 +74,9 @@ namespace WebApplication1
                     String uuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
                     TableCell cell5 = new TableCell();
                     cell5.Text = string.Format("<button id='{0}' onClick='f_{0}()'>Wake Up</a>", uuid);
-                    sb.AppendFormat("\nfunction f_{0}(){{", uuid);
-                    sb.AppendFormat("\ndocument.getElementById('my_iframe').src = '/api/wol?mac={0}&ip={1}&subnet={2}'\n", mac, ip, subnet);
+                    sb.AppendLine(string.Format("function f_{0}(){{", uuid));
+                    sb.AppendLine(string.Format("document.getElementById('my_iframe').src = '/api/wol?mac={0}&ip={1}&subnet={2}'", mac, ip, subnet));
+                    sb.AppendLine(string.Format("document.getElementById('{0}').textContent = '{1}'", uuid, "Sent OK"));
                     sb.AppendLine("}");
                     row.Cells.Add(cell5);
 
