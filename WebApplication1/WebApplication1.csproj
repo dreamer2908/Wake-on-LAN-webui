@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="common.cs" />
     <Compile Include="Controllers\PingController.cs" />
     <Compile Include="Controllers\WolController.cs" />
     <Compile Include="Global.asax.cs">

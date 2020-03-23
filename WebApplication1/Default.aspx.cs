@@ -36,15 +36,10 @@ namespace WebApplication1
 
                 // read list of PCs
 
-                SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True;User Instance=True");
-                SqlCommand cmd = new SqlCommand("select * from Computers where username=@username", con);
+                SqlCommand cmd = new SqlCommand("select * from Computers where username=@username");
                 cmd.Parameters.AddWithValue("@username", username);
-                SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                con.Open();
-                int i = cmd.ExecuteNonQuery();
-                con.Close();
+
+                int rows = common.queryDatabase(cmd, out DataTable dt);
 
 
                 foreach (DataRow pc in dt.Rows)
