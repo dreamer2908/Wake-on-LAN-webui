@@ -43,19 +43,6 @@ namespace WebApplication1
             Response.Redirect("Default.aspx");
         }
 
-        protected void btnDeleteComputer_click(object sender, EventArgs e)
-        {
-            // delete record with id
-            string recordId = txtDeleteRecordId.Text;
-
-            SqlCommand cmd = new SqlCommand("DELETE FROM Computers where id=@id");
-            cmd.Parameters.AddWithValue("@id", recordId);
-
-            int rows = common.queryDatabase(cmd, out DataTable dt);
-
-            reloadPage();
-        }
-
         protected void btnAddNewPc_Click(object sender, EventArgs e)
         {
             string newUsername = txtNewUsername.Text;
