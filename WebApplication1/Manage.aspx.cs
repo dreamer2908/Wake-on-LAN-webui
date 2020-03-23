@@ -15,7 +15,6 @@ namespace WebApplication1
         {
             string sessionId = this.Session.SessionID;
             Sessions.readSession(sessionId, out Sessions.session ses);
-            string username = ses.username;
 
             // redirect to login page if either not login or not admin
             if (!(ses.isLoggedIn && ses.isAdmin))
@@ -23,6 +22,9 @@ namespace WebApplication1
                 redirectToLogin(sessionId);
                 return;
             }
+
+            string username = ses.username;
+            label1.Text = username;
         }
 
         protected void Button2_Click(object sender, EventArgs e)
