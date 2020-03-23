@@ -81,7 +81,7 @@
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True;User Instance=True" 
                 CancelSelectOnNullParameter="false" 
-                SelectCommand="select * from Computers">
+                SelectCommand="select * from Computers ORDER BY id">
                 <SelectParameters>
                     <asp:QueryStringParameter Name="id" QueryStringField="id" />
                     <asp:QueryStringParameter Name="username" QueryStringField="username" />

@@ -48,15 +48,10 @@ namespace WebApplication1
             // delete record with id
             string recordId = txtDeleteRecordId.Text;
 
-            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True;User Instance=True");
-            SqlCommand cmd = new SqlCommand("DELETE FROM Computers where id=@id", con);
+            SqlCommand cmd = new SqlCommand("DELETE FROM Computers where id=@id");
             cmd.Parameters.AddWithValue("@id", recordId);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            con.Open();
-            int i = cmd.ExecuteNonQuery();
-            con.Close();
+
+            int rows = queryDatabase(cmd, out DataTable dt);
 
             reloadPage();
         }
@@ -69,21 +64,31 @@ namespace WebApplication1
             string newSubnet = txtNewIpSubnet.Text;
             string newMac = txtNewMacAddress.Text;
 
-            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True;User Instance=True");
-            SqlCommand cmd = new SqlCommand("INSERT INTO Computers ([username], [name], [ip], [subnet], [mac]) VALUES (@username, @name, @ip, @subnet, @mac)", con);
+            SqlCommand cmd = new SqlCommand("INSERT INTO Computers ([username], [name], [ip], [subnet], [mac]) VALUES (@username, @name, @ip, @subnet, @mac)");
             cmd.Parameters.AddWithValue("@username", newUsername);
             cmd.Parameters.AddWithValue("@name", newPcName);
             cmd.Parameters.AddWithValue("@ip", newIp);
             cmd.Parameters.AddWithValue("@subnet", newSubnet);
             cmd.Parameters.AddWithValue("@mac", newMac);
+
+            int rows = queryDatabase(cmd, out DataTable dt);
+
+            reloadPage();
+        }
+
+        // query the database, return the number of rows affected, and output a datatable
+        public int queryDatabase(SqlCommand cmd, out DataTable dt)
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True;User Instance=True");
+            cmd.Connection = con;
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            dt = new DataTable();
             sda.Fill(dt);
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
 
-            reloadPage();
+            return i;
         }
 
         private void reloadPage()
