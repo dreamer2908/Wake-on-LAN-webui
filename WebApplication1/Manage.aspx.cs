@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Web.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,8 @@ namespace WebApplication1
 
             string username = ses.username;
             label1.Text = username;
+
+            SqlDataSource1.ConnectionString = WebConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
         }
 
         protected void Button2_Click(object sender, EventArgs e)

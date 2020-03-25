@@ -66,7 +66,6 @@
             </table>
             <p>&nbsp;</p>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-                ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database2.mdf;Integrated Security=True;User Instance=True" 
                 CancelSelectOnNullParameter="false" 
                 SelectCommand="SELECT id, username, name, ip, subnet, mac FROM Computers ORDER BY id"
                 DeleteCommand="DELETE FROM Computers where id=@id"
