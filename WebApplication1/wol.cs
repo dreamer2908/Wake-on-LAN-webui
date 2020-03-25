@@ -11,7 +11,7 @@ namespace WebApplication1
 {
     public static class wol
     {
-        public static int wake(string mac, string ip, string subnet)
+        public static IPAddress wake(string mac, string ip, string subnet)
         {
             // clean up input to make sure it won't crash
             var macAddress = mac;
@@ -53,7 +53,7 @@ namespace WebApplication1
             sock.SendTo(payload, new IPEndPoint(broadcastAddr, 7));  // Broadcast our packet
             sock.Close(10000);
 
-            return 0;
+            return broadcastAddr;
         }
 
         public static IPAddress getBroadcastAddress(this IPAddress address, IPAddress subnetMask)

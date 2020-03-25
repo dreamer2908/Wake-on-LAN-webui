@@ -16,13 +16,12 @@ namespace WebApplication1.Controllers
             //string ip = "172.21.160.244";
             //string subnet = "255.255.255.0";
 
-            wol.wake(mac, ip, subnet);
+            IPAddress usedAddress = wol.wake(mac, ip, subnet);
 
             return new string[]
             {
                 mac,
-                ip,
-                subnet
+                usedAddress.ToString()
             };
         }
     }
