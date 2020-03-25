@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
 
 namespace WebApplication1
 {
@@ -71,6 +72,41 @@ namespace WebApplication1
         private void reloadPage()
         {
             Server.TransferRequest(Request.Url.AbsolutePath, false);
+        }
+
+        protected void btnGetIpFromPcName_Click(object sender, EventArgs e)
+        {
+            string host = txtNewPcName.Text;
+            bool found = false;
+            found = common.getIpfromHost(host, out string ip);
+
+            if (found)
+            {
+                txtNewIpAddress.Text = ip.ToString();
+                lblErrorGetIpFromPcName.Text = string.Empty;
+            }
+            else
+            {
+                lblErrorGetIpFromPcName.Text = "Hostname not found";
+            }
+
+        }
+
+        protected void btnGetMacFromIp_Click(object sender, EventArgs e)
+        {
+            string ip = txtNewIpAddress.Text;
+            bool found = false;
+            found = common.getMacFromIp(ip, out string mac);
+
+            if (found)
+            {
+                txtNewMacAddress.Text = mac;
+                lblErrorGetMacFromIp.Text = string.Empty;
+            }
+            else
+            {
+                lblErrorGetMacFromIp.Text = "Not found in ARP";
+            }
         }
     }
 }

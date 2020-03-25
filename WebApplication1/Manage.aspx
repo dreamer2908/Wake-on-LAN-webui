@@ -51,6 +51,8 @@
                 <tr>
                     <td>IP Address:</td>
                     <td><asp:TextBox ID="txtNewIpAddress" runat="server" Text="172.21.160.100"></asp:TextBox></td>
+                    <td><asp:LinkButton ID="btnGetIpFromPcName" runat="server" Text="Get from PC Name" OnClick="btnGetIpFromPcName_Click"></asp:LinkButton></td>
+                    <td><asp:Label ID="lblErrorGetIpFromPcName" runat="server" Text="" ForeColor="Red"></asp:Label></td>
                 </tr>
                 <tr>
                     <td>Subnet Mask:</td>
@@ -59,6 +61,8 @@
                 <tr>
                     <td>MAC Address:</td>
                     <td><asp:TextBox ID="txtNewMacAddress" runat="server" Text="00-00-00-00-00-00"></asp:TextBox></td>
+                    <td><asp:LinkButton ID="btnGetMacFromIp" runat="server" Text="Get from IP Address" OnClick="btnGetMacFromIp_Click" ></asp:LinkButton></td>
+                    <td><asp:Label ID="lblErrorGetMacFromIp" runat="server" Text="" ForeColor="Red"></asp:Label></td>
                 </tr>
                 <tr>
                     <td><asp:Button ID="btnAddNewPc" runat="server" Text="Add" onclick="btnAddNewPc_Click" /></td>

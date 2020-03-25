@@ -85,6 +85,24 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.TextBox txtNewIpAddress;
         
         /// <summary>
+        /// btnGetIpFromPcName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnGetIpFromPcName;
+        
+        /// <summary>
+        /// lblErrorGetIpFromPcName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorGetIpFromPcName;
+        
+        /// <summary>
         /// txtNewIpSubnet control.
         /// </summary>
         /// <remarks>
@@ -101,6 +119,24 @@ namespace WebApplication1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNewMacAddress;
+        
+        /// <summary>
+        /// btnGetMacFromIp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnGetMacFromIp;
+        
+        /// <summary>
+        /// lblErrorGetMacFromIp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorGetMacFromIp;
         
         /// <summary>
         /// btnAddNewPc control.
