@@ -83,6 +83,7 @@
                 </UpdateParameters>
             </asp:SqlDataSource>
             <asp:GridView CssClass="fullborder" ID="ComputersGridView" runat="server"
+                ShowHeaderWhenEmpty="true"
                 DataSourceID="SqlDataSource1" DataKeyNames="id"
                 AutoGenerateColumns="false"
                 AutoGenerateEditButton="false"
