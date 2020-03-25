@@ -212,11 +212,11 @@ namespace WebApplication1
         }
 
         #region Log
-        public static int writeLog(string username, string action, string detail)
+        public static int writeLog(DateTime d, string username, string action, string detail)
         {
             // SqlCommand cmd = new SqlCommand("DECLARE @Offset datetimeoffset = sysdatetimeoffset(); INSERT INTO Log ([timestamp], [ip], [username], [action], [detail]) VALUES (@Offset, @ip, @username, @action, @detail)");
             SqlCommand cmd = new SqlCommand("INSERT INTO Log ([timestamp], [ip], [username], [action], [detail]) VALUES (@timestamp, @ip, @username, @action, @detail)");
-            cmd.Parameters.AddWithValue("@timestamp", getNowDateTime());
+            cmd.Parameters.AddWithValue("@timestamp", formatDateTime(d));
             cmd.Parameters.AddWithValue("@ip", getRequestIPAddress());
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@action", action);
@@ -224,6 +224,11 @@ namespace WebApplication1
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
             return rows;
+        }
+
+        public static int writeLog(string username, string action, string detail)
+        {
+            return writeLog(DateTime.Now, username, action, detail);
         }
 
         public static string getRequestIPAddress()
