@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.DirectoryServices.AccountManagement;
+using System.Web.Configuration;
 
 namespace WebApplication1
 {
@@ -31,7 +32,10 @@ namespace WebApplication1
             string password = TextBox2.Text;
 
             // create a "principal context" - e.g. your domain (could be machine, too)
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "PRS-VN", "prsvn", "123456"))
+            string domainServer = WebConfigurationManager.ConnectionStrings["domainServer"].ConnectionString;
+            string domainUsername = WebConfigurationManager.ConnectionStrings["domainUsername"].ConnectionString;
+            string domainPassword = WebConfigurationManager.ConnectionStrings["domainPassword"].ConnectionString;
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domainServer, domainUsername, domainPassword))
             {
                 // validate the credentials
                 isValid = pc.ValidateCredentials(username, password, ContextOptions.Negotiate);
