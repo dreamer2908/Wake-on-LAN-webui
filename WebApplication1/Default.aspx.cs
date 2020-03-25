@@ -76,7 +76,7 @@ namespace WebApplication1
                     TableCell cell5 = new TableCell();
                     cell5.Text = string.Format("<button id='{0}' onClick='f_{0}()'>Wake Up</a>", uuid);
                     sb.AppendLine(string.Format("function f_{0}(){{", uuid));
-                    sb.AppendLine(string.Format("document.getElementById('my_iframe').src = '/api/wol?mac={0}&ip={1}&subnet={2}'", mac, ip, subnet));
+                    sb.AppendLine(string.Format("document.getElementById('my_iframe').src = '/api/wol?mac={0}&ip={1}&subnet={2}&pcname={3}&username={4}'", mac, ip, subnet, pcname, username));
                     sb.AppendLine(string.Format("document.getElementById('{0}').textContent = '{1}'", uuid, "Sent OK"));
                     sb.AppendLine("}");
                     row.Cells.Add(cell5);
