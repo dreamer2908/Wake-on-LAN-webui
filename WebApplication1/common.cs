@@ -210,5 +210,49 @@ namespace WebApplication1
 
             return pingResult;
         }
+
+        #region Log
+        public static int writeLog(string username, string action, string detail)
+        {
+            // SqlCommand cmd = new SqlCommand("DECLARE @Offset datetimeoffset = sysdatetimeoffset(); INSERT INTO Log ([timestamp], [ip], [username], [action], [detail]) VALUES (@Offset, @ip, @username, @action, @detail)");
+            SqlCommand cmd = new SqlCommand("INSERT INTO Log ([timestamp], [ip], [username], [action], [detail]) VALUES (@timestamp, @ip, @username, @action, @detail)");
+            cmd.Parameters.AddWithValue("@timestamp", getNowDateTime());
+            cmd.Parameters.AddWithValue("@ip", getRequestIPAddress());
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@action", action);
+            cmd.Parameters.AddWithValue("@detail", detail);
+
+            int rows = common.queryDatabase(cmd, out DataTable dt);
+            return rows;
+        }
+
+        public static string getRequestIPAddress()
+        {
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(ipAddress))
+            {
+                string[] addresses = ipAddress.Split(',');
+                if (addresses.Length != 0)
+                {
+                    return addresses[0];
+                }
+            }
+
+            return context.Request.ServerVariables["REMOTE_ADDR"];
+        }
+
+        public static string formatDateTime(DateTime d)
+        {
+            return d.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        public static string getNowDateTime()
+        {
+            return formatDateTime(DateTime.Now);
+        }
+        #endregion
+
     }
 }

@@ -34,7 +34,11 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <p>Logged in as <asp:Label ID="label1" runat="server" Text="Username" />.  [<asp:LinkButton ID="Button2" runat="server" Text="Log out" onclick="Button2_Click" />] [<asp:LinkButton ID="LinkButton3" runat="server" Text="Main" onclick="Button3_Click" />]</p>
+            <p>Logged in as <asp:Label ID="lblUsername" runat="server" Text="Username" />.
+                &nbsp;[<asp:LinkButton ID="lnkLogout" runat="server" Text="Log out" onclick="lnkLogout_Click" />]
+                &nbsp;[<asp:LinkButton ID="lnkToMain" runat="server" Text="Main" onclick="lnkToMain_Click" />]
+                &nbsp;[<asp:LinkButton ID="lnkToLog" runat="server" Text="Log" OnClick="lnkToLog_Click"></asp:LinkButton>]
+            </p>
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>

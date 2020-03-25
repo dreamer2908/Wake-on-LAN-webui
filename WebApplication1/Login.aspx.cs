@@ -68,10 +68,12 @@ namespace WebApplication1
                 //}
 
                 Sessions.writeSession(sessionId, true, username, isAdmin);
+                common.writeLog(username, "Login", "Login OK");
                 Response.Redirect("Default.aspx");
             }
             else
             {
+                common.writeLog(string.Empty, "Login", "Login failure: " + username);
                 Label1.Text = "Your username and password is incorrect";
                 Label1.ForeColor = System.Drawing.Color.Red;
             }

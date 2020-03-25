@@ -21,15 +21,16 @@ namespace WebApplication1
 
             if (!ses.isLoggedIn)
             {
-                redirectToLogin(sessionId);
+                redirectToLogin();
                 return;
             }
             else
             {
-                label1.Text = username;
+                lblUsername.Text = username;
 
                 // display the manage link if it's an admin
-                LinkButton3.Enabled = LinkButton3.Visible = isAdmin;
+                lnkToManage.Enabled = lnkToManage.Visible = isAdmin;
+                lnkToLog.Enabled = lnkToLog.Visible = isAdmin;
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("<script  type='text/javascript'>");
@@ -88,22 +89,24 @@ namespace WebApplication1
             }
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void lnkLogout_Click(object sender, EventArgs e)
         {
-            string sessionId = this.Session.SessionID;
-            redirectToLogin(sessionId);
+            redirectToLogin();
         }
 
-        private void redirectToLogin(string id)
+        private void redirectToLogin()
         {
-            Sessions.deleteSession(id);
-            this.Session.Abandon();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Logout.aspx");
         }
 
-        protected void Button3_Click(object sender, EventArgs e)
+        protected void lnkToManage_Click(object sender, EventArgs e)
         {
             Response.Redirect("Manage.aspx");
+        }
+
+        protected void lnkToLog_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Log.aspx");
         }
     }
 }

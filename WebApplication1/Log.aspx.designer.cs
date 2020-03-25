@@ -10,7 +10,7 @@
 namespace WebApplication1 {
     
     
-    public partial class Default {
+    public partial class Log {
         
         /// <summary>
         /// jsCode control.
@@ -40,13 +40,22 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Label lblUsername;
         
         /// <summary>
-        /// lnkLogout control.
+        /// lnkLogOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
+        protected global::System.Web.UI.WebControls.LinkButton lnkLogOut;
+        
+        /// <summary>
+        /// lnkToMain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkToMain;
         
         /// <summary>
         /// lnkToManage control.
@@ -58,21 +67,21 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToManage;
         
         /// <summary>
-        /// lnkToLog control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkToLog;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
-        /// pcTable control.
+        /// LogGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table pcTable;
+        protected global::System.Web.UI.WebControls.GridView LogGridView;
     }
 }
