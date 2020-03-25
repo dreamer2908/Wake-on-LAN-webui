@@ -46,12 +46,13 @@
                 >
             </asp:SqlDataSource>
             <asp:GridView CssClass="fullborder" ID="LogGridView" runat="server"
+                DataSourceID="SqlDataSource1" DataKeyNames="id"
                 ShowHeaderWhenEmpty="true"
                 AutoGenerateColumns="false"
                 >
                 <Columns>
                     <asp:BoundField DataField="id" HeaderText="id" ReadOnly="true" />
-                    <asp:BoundField DataField="timestamp" HeaderText="Timestamp" />
+                    <asp:BoundField DataField="timestamp" HeaderText="Timestamp" DataFormatString="{0:yyyy-MM-dd hh:mm:ss}" />
                     <asp:BoundField DataField="ip" HeaderText="Source IP" />
                     <asp:BoundField DataField="username" HeaderText="Username" />
                     <asp:BoundField DataField="action" HeaderText="Action" />
