@@ -17,7 +17,8 @@ namespace WebApplication1.Controllers
             //string subnet = "255.255.255.0";
 
             var timestamp = DateTime.Now;
-            IPAddress usedAddress = wol.wake(mac, ip, subnet);
+            int sendToMode = int.Parse(common.readSettingDatabase_sendTo());
+            IPAddress usedAddress = wol.wake(mac, ip, subnet, sendToMode);
             common.writeLog(timestamp, username, "Wake-on-LAN", string.Format("pcname = {0}, ip = {1}, subnet = {2}, mac = {3}", pcname, ip, subnet, mac));
 
             return new string[]

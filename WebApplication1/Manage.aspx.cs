@@ -29,6 +29,11 @@ namespace WebApplication1
             lblUsername.Text = username;
 
             SqlDataSource1.ConnectionString = WebConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+
+            if (!IsPostBack)
+            {
+                ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase_sendTo();
+            }
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
@@ -109,6 +114,12 @@ namespace WebApplication1
             {
                 lblErrorGetMacFromIp.Text = "Not found in ARP";
             }
+        }
+
+        protected void btnApplyOptions_Click(object sender, EventArgs e)
+        {
+            string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
+            common.writeSettingDatabase_sendTo(sendWolTo);
         }
     }
 }

@@ -27,3 +27,11 @@ CREATE TABLE [dbo].[Log]
 
 CREATE UNIQUE NONCLUSTERED INDEX [UIX_Log]
     ON [dbo].[Log]([timestamp] ASC, ip ASC, [username] ASC, [action] ASC) WITH (IGNORE_DUP_KEY = ON);
+
+
+CREATE TABLE [dbo].[Settings]
+(
+    [key] NVARCHAR(50) NOT NULL, 
+    [value] NVARCHAR(MAX) NULL, 
+    CONSTRAINT [PK_Table] PRIMARY KEY ([key]) 
+)

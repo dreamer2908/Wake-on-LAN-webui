@@ -259,5 +259,67 @@ namespace WebApplication1
         }
         #endregion
 
+        #region Settings from database
+        public static void writeSettingDatabase_sendTo(string val)
+        {
+            SqlCommand cmd = new SqlCommand(@"
+declare @kye varchar(50)
+declare @val varchar(50)
+set @kye = @k
+set @val = @v
+
+IF (NOT EXISTS(SELECT * FROM Settings WHERE [key] = @kye)) 
+BEGIN
+    INSERT INTO Settings ([key], [value]) VALUES (@kye, @val)
+END 
+ELSE 
+BEGIN 
+    UPDATE Settings 
+    SET [value] = @val
+    WHERE [key] = @kye
+END ");
+            cmd.Parameters.AddWithValue("@k", "sendto");
+            cmd.Parameters.AddWithValue("@v", val);
+
+            int rows = common.queryDatabase(cmd, out DataTable dt);
+        }
+
+        public static string readSettingDatabase_sendTo()
+        {
+            int defVal = 3;
+            int minVal = 1;
+            int maxVal = 3;
+
+            int val = defVal;
+            bool valid = false;
+
+            // get the "value" by key "sendto" in table Settings
+            SqlCommand cmd = new SqlCommand("SELECT [key], [value] FROM Settings WHERE [key] = @kye;");
+            cmd.Parameters.AddWithValue("@kye", "sendto");
+            int rows = common.queryDatabase(cmd, out DataTable dt);
+            return dt.Rows[0].ItemArray[1].ToString();
+            if (rows > 0)
+            {
+                string strVal = dt.Rows[0].ItemArray[1].ToString();
+                // check if it's an int and within the min/max
+                bool isInt = int.TryParse(strVal, out val);
+                if (isInt && val <= maxVal && val >= minVal)
+                {
+                    valid = true;
+                }
+            }
+
+            if (valid)
+            {
+                return val.ToString();
+            }
+            else
+            {
+                // write back the default value
+                writeSettingDatabase_sendTo(defVal.ToString());
+                return defVal.ToString();
+            }
+        }
+        #endregion
     }
 }

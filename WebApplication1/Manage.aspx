@@ -42,6 +42,27 @@
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>
+                    <td colspan="2"><b>Options:</b></td>
+                </tr>
+                <tr>
+                    <td>Send the Wake-on-LAN packet to</td>
+                    <td>
+                        <asp:DropDownList ID="ddlSendWolPackageTo" runat="server">
+                            <asp:ListItem Text="Broadcast Address 255.255.255.255" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Broadcast Address According to IP Address" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="IP Address of the device" Value="3"></asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnApplyOptions" runat="server" Text="Apply" OnClick="btnApplyOptions_Click" />
+                    </td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <table style="margin-left: 0; margin-right: auto; border: none;">
+                <tr>
                     <td colspan="2"><b>Add a new computer:</b></td>
                 </tr>
                 <tr>

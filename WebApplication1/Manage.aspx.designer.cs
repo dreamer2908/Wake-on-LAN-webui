@@ -67,6 +67,24 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToLog;
         
         /// <summary>
+        /// ddlSendWolPackageTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSendWolPackageTo;
+        
+        /// <summary>
+        /// btnApplyOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnApplyOptions;
+        
+        /// <summary>
         /// txtNewUsername control.
         /// </summary>
         /// <remarks>

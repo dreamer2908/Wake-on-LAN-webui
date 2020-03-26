@@ -11,7 +11,7 @@ namespace WebApplication1
 {
     public static class wol
     {
-        public static IPAddress wake(string mac, string ip, string subnet)
+        public static IPAddress wake(string mac, string ip, string subnet, int sendTo)
         {
             // clean up input to make sure it won't crash
             var macAddress = mac;
@@ -48,12 +48,28 @@ namespace WebApplication1
                 }
             }
 
-            var broadcastAddr = getBroadcastAddress(IPAddress.Parse(ip), IPAddress.Parse(subnet));
+            // select the target address
+            // sendTo 1: Broadcast address 255.255.255.255
+            // sendTo 2: Broadcast address from IP and subnet mask
+            // sendTo 3: IP address
 
-            sock.SendTo(payload, new IPEndPoint(broadcastAddr, 7));  // Broadcast our packet
+            IPAddress target;
+            switch (sendTo)
+            {
+                case 1:
+                    target = IPAddress.Parse("255.255.255.255"); break;
+                case 2:
+                    target = getBroadcastAddress(IPAddress.Parse(ip), IPAddress.Parse(subnet)); break;
+                case 3:
+                    target = IPAddress.Parse(ip); break;
+                default:
+                    target = IPAddress.Parse("255.255.255.255"); break;
+            }
+
+            sock.SendTo(payload, new IPEndPoint(target, 7));  // Broadcast our packet
             sock.Close(10000);
 
-            return broadcastAddr;
+            return target;
         }
 
         public static IPAddress getBroadcastAddress(this IPAddress address, IPAddress subnetMask)
