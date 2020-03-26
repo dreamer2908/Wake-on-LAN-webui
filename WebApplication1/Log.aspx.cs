@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -46,6 +48,25 @@ namespace WebApplication1
         protected void lnkToManage_Click(object sender, EventArgs e)
         {
             Response.Redirect("Manage.aspx");
+        }
+
+        protected void btnDeleteLog_Click(object sender, EventArgs e)
+        {
+            string logId = txtDeleteLogId.Text;
+
+            SqlCommand cmd = new SqlCommand("DELETE FROM Log WHERE id <= @id");
+            cmd.Parameters.AddWithValue("@id", logId);
+
+            int rows = common.queryDatabase(cmd, out DataTable dt);
+
+            common.writeLog(lblUsername.Text, "Delete Log", "Delete log upto id " + logId);
+
+            reloadPage();
+        }
+
+        private void reloadPage()
+        {
+            Server.TransferRequest(Request.Url.AbsolutePath, false);
         }
     }
 }

@@ -40,6 +40,14 @@
                 [<asp:LinkButton ID="lnkToManage" runat="server" Text="Manage" OnClick="lnkToManage_Click" />]
             </p>
             <p>&nbsp;</p>
+            <table style="margin-left: 0; margin-right: auto; border: none;">
+                <tr>
+                    <td>Delete log upto id </td>
+                    <td><asp:TextBox ID="txtDeleteLogId" runat="server" Text="1"></asp:TextBox></td>
+                    <td><asp:Button ID="btnDeleteLog" runat="server" Text="Delete" OnClick="btnDeleteLog_Click" /></td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 CancelSelectOnNullParameter="false" 
                 SelectCommand="SELECT * FROM Log ORDER BY id"
