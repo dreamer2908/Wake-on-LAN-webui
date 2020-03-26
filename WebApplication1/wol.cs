@@ -11,7 +11,7 @@ namespace WebApplication1
 {
     public static class wol
     {
-        public static IPAddress wake(string mac, string ip, string subnet, int sendTo)
+        public static IPAddress wake(string mac, string ip, string subnet, string sendTo)
         {
             // clean up input to make sure it won't crash
             var macAddress = mac;
@@ -56,11 +56,11 @@ namespace WebApplication1
             IPAddress target;
             switch (sendTo)
             {
-                case 1:
+                case "1":
                     target = IPAddress.Parse("255.255.255.255"); break;
-                case 2:
+                case "2":
                     target = getBroadcastAddress(IPAddress.Parse(ip), IPAddress.Parse(subnet)); break;
-                case 3:
+                case "3":
                     target = IPAddress.Parse(ip); break;
                 default:
                     target = IPAddress.Parse("255.255.255.255"); break;
