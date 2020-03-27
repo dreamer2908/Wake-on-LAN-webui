@@ -11,7 +11,7 @@ namespace WebApplication1
 {
     public static class wol
     {
-        public static IPAddress wake(string mac, string ip, string subnet, string sendTo)
+        public static List<IPAddress> wake(string mac, string ip, string subnet, string sendTo)
         {
             // clean up input to make sure it won't crash
             var macAddress = mac;
@@ -52,24 +52,32 @@ namespace WebApplication1
             // sendTo 1: Broadcast address 255.255.255.255
             // sendTo 2: Broadcast address from IP and subnet mask
             // sendTo 3: IP address
+            // sendTo 0: All
 
-            IPAddress target;
+            List<IPAddress> targets = new List<IPAddress>();
             switch (sendTo)
             {
                 case "1":
-                    target = IPAddress.Parse("255.255.255.255"); break;
+                    targets.Add(IPAddress.Parse("255.255.255.255")); break;
                 case "2":
-                    target = getBroadcastAddress(IPAddress.Parse(ip), IPAddress.Parse(subnet)); break;
+                    targets.Add(getBroadcastAddress(IPAddress.Parse(ip), IPAddress.Parse(subnet))); break;
                 case "3":
-                    target = IPAddress.Parse(ip); break;
+                    targets.Add(IPAddress.Parse(ip)); break;
                 default:
-                    target = IPAddress.Parse("255.255.255.255"); break;
+                    targets.Add(IPAddress.Parse("255.255.255.255"));
+                    targets.Add(getBroadcastAddress(IPAddress.Parse(ip), IPAddress.Parse(subnet)));
+                    targets.Add(IPAddress.Parse(ip));
+                    break;
             }
 
-            sock.SendTo(payload, new IPEndPoint(target, 7));  // Broadcast our packet
+            foreach (var target in targets)
+            {
+                sock.SendTo(payload, new IPEndPoint(target, 7));  // Broadcast our packet
+            }
+
             sock.Close(10000);
 
-            return target;
+            return targets;
         }
 
         public static IPAddress getBroadcastAddress(this IPAddress address, IPAddress subnetMask)

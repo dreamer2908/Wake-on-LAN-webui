@@ -64,7 +64,7 @@
                     <asp:BoundField DataField="ip" HeaderText="Source IP" />
                     <asp:BoundField DataField="username" HeaderText="Username" />
                     <asp:BoundField DataField="action" HeaderText="Action" />
-                    <asp:BoundField DataField="detail" HeaderText="Detail" />
+                    <asp:BoundField DataField="detail" HeaderText="Detail" HtmlEncode="false" />
                 </Columns>
             </asp:GridView>
         </div>

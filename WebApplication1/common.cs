@@ -286,8 +286,8 @@ END ");
 
         public static string readSettingDatabase_sendTo()
         {
-            int defVal = 3;
-            int minVal = 1;
+            int defVal = 0;
+            int minVal = 0;
             int maxVal = 3;
 
             int val = defVal;
@@ -297,7 +297,7 @@ END ");
             SqlCommand cmd = new SqlCommand("SELECT [key], [value] FROM Settings WHERE [key] = @kye;");
             cmd.Parameters.AddWithValue("@kye", "sendto");
             int rows = common.queryDatabase(cmd, out DataTable dt);
-            return dt.Rows[0].ItemArray[1].ToString();
+
             if (rows > 0)
             {
                 string strVal = dt.Rows[0].ItemArray[1].ToString();

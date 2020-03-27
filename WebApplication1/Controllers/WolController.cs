@@ -30,14 +30,19 @@ namespace WebApplication1.Controllers
             }
             string sendToMode = valid ? sendto : common.readSettingDatabase_sendTo();
 
-            IPAddress usedAddress = wol.wake(mac, ip, subnet, sendToMode);
-            common.writeLog(timestamp, username, "Wake-on-LAN", string.Format("pcname = {0}, ip = {1}, subnet = {2}, mac = {3}", pcname, ip, subnet, mac));
+            var usedAddresses = wol.wake(mac, ip, subnet, sendToMode);
 
-            return new string[]
+            // return which addresses it sent to
+            string[] re = new string[usedAddresses.Count];
+            for (int i = 0; i < usedAddresses.Count; i++)
             {
-                mac,
-                usedAddress.ToString()
-            };
+                re[i] = usedAddresses[i].ToString();
+            }
+
+            // write log
+            common.writeLog(timestamp, username, "Wake-on-LAN", string.Format("pcname = {0}, ip = {1}, subnet = {2}, mac = {3}, {6} target = [ {5} ]", pcname, ip, subnet, mac, sendto, string.Join(", ", re), "<br>"));
+
+            return re;
         }
     }
 }

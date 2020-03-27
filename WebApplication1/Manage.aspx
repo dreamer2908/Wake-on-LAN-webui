@@ -48,6 +48,7 @@
                     <td>Send the Wake-on-LAN packet to</td>
                     <td>
                         <asp:DropDownList ID="ddlSendWolPackageTo" runat="server">
+                            <asp:ListItem Text="All" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Broadcast Address 255.255.255.255" Value="1"></asp:ListItem>
                             <asp:ListItem Text="Broadcast Address According to IP Address" Value="2"></asp:ListItem>
                             <asp:ListItem Text="IP Address of the device" Value="3"></asp:ListItem>
