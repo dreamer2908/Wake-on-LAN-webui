@@ -37,7 +37,7 @@ namespace WebApplication1
 
                 // read list of PCs
 
-                SqlCommand cmd = new SqlCommand("select * from Computers where username=@username");
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Computers WHERE username=@username ORDER BY id");
                 cmd.Parameters.AddWithValue("@username", username);
 
                 int rows = common.queryDatabase(cmd, out DataTable dt);
