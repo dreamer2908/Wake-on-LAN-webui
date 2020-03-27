@@ -42,10 +42,10 @@ namespace WebApplication1
 
             if (hostEntry != null)
             {
-                // get the first address
+                // get the first IPv4 address
                 foreach (var entry in hostEntry.AddressList)
                 {
-                    if (entry.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork || entry.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                    if (entry.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
                         ip = entry.ToString();
                         return true;
