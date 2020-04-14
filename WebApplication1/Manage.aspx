@@ -100,7 +100,25 @@
                 CancelSelectOnNullParameter="false" 
                 SelectCommand="SELECT id, username, name, ip, subnet, mac FROM Computers ORDER BY id"
                 DeleteCommand="DELETE FROM Computers where id=@id"
-                UpdateCommand="UPDATE Computers SET username=@username, name=@name, ip=@ip, subnet=@subnet, mac=@mac WHERE id=@id" >
+                UpdateCommand="
+DECLARE @new_name VARCHAR(50) = @name;
+
+DECLARE @x INT = 0;
+DECLARE @i INT = 0;
+
+WHILE (@x = 0)
+BEGIN
+	BEGIN TRY
+		UPDATE [dbo].[Computers] SET username=@username, name=@new_name, ip=@ip, subnet=@subnet, mac=@mac WHERE id=@id
+		SET @x = 1;
+	END TRY
+	BEGIN CATCH
+		SET @x = 0;
+		SET @i = @i + 1;
+		SET @new_name = CONCAT(@name, ' (', @i, ')');
+	END CATCH
+END
+                " >
                 <DeleteParameters>
                     <asp:ControlParameter ControlID="ComputersGridView" Name="id" PropertyName="SelectedDataKey" />
                 </DeleteParameters>
