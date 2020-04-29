@@ -38,7 +38,8 @@
             <p>Logged in as <asp:Label ID="lblUsername" runat="server" Text="Username" />.&nbsp;
                 [<asp:LinkButton ID="lnkLogOut" runat="server" Text="Log out" onclick="lnkLogOut_Click" />]&nbsp;
                 [<asp:LinkButton ID="lnkToMain" runat="server" Text="Main" onclick="lnkToMain_Click" />]&nbsp;
-                [<asp:LinkButton ID="lnkToManage" runat="server" Text="Manage" OnClick="lnkToManage_Click" />]
+                [<asp:LinkButton ID="lnkToManage" runat="server" Text="Computers" OnClick="lnkToManage_Click" />]&nbsp;
+                [<asp:LinkButton ID="lnkToUser" runat="server" Text="Users" onclick="lnkToUser_Click" />]
             </p>
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">

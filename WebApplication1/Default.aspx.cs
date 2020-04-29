@@ -31,6 +31,7 @@ namespace WebApplication1
                 // display the manage link if it's an admin
                 lnkToManage.Enabled = lnkToManage.Visible = isAdmin;
                 lnkToLog.Enabled = lnkToLog.Visible = isAdmin;
+                lnkToUser.Enabled = lnkToUser.Visible = isAdmin;
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("<script  type='text/javascript'>");
@@ -102,6 +103,11 @@ namespace WebApplication1
         protected void lnkToManage_Click(object sender, EventArgs e)
         {
             Response.Redirect("Manage.aspx");
+        }
+
+        protected void lnkToUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Users.aspx");
         }
 
         protected void lnkToLog_Click(object sender, EventArgs e)

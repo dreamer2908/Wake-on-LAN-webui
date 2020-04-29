@@ -35,3 +35,11 @@ CREATE TABLE [dbo].[Settings]
     [value] NVARCHAR(MAX) NULL, 
     CONSTRAINT [PK_Table] PRIMARY KEY ([key]) 
 )
+
+
+CREATE TABLE [dbo].[Users]
+(
+	[username] VARCHAR(50) NOT NULL PRIMARY KEY, 
+    [password] VARCHAR(50) NOT NULL, 
+    [admin] INT NOT NULL
+)

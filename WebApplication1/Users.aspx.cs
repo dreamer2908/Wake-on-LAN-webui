@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class Log : System.Web.UI.Page
+    public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,14 +28,15 @@ namespace WebApplication1
             lblUsername.Text = username;
 
             SqlDataSource1.ConnectionString = WebConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-        }
 
-        protected void lnkLogOut_Click(object sender, EventArgs e)
+
+        }
+        protected void lnkLogout_Click(object sender, EventArgs e)
         {
             redirectToLogin();
         }
 
-        public void redirectToLogin()
+        private void redirectToLogin()
         {
             Response.Redirect("Logout.aspx");
         }
@@ -45,21 +46,45 @@ namespace WebApplication1
             Response.Redirect("Default.aspx");
         }
 
+        protected void lnkToLog_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Log.aspx");
+        }
+
         protected void lnkToManage_Click(object sender, EventArgs e)
         {
             Response.Redirect("Manage.aspx");
         }
 
-        protected void btnDeleteLog_Click(object sender, EventArgs e)
+        protected void btnAddUser_Click(object sender, EventArgs e)
         {
-            string logId = txtDeleteLogId.Text;
+            string newUsername = txtNewUsername.Text;
+            string newPassword = common.getSha1HashFromText(txtNewPassword.Text);
+            string isAdmin = ddlNewIsAdmin.SelectedItem.Value;
 
-            SqlCommand cmd = new SqlCommand("DELETE FROM Log WHERE id <= @id");
-            cmd.Parameters.AddWithValue("@id", logId);
+            SqlCommand cmd = new SqlCommand(@"
+declare @kye varchar(50)
+declare @val varchar(50)
+declare @val2 varchar(50)
+set @kye = @username
+set @val = @password
+set @val2 = @admin
+
+IF (NOT EXISTS(SELECT * FROM [dbo].[Users] where username = @kye)) 
+BEGIN
+    INSERT INTO [dbo].[Users] ([username], [password], [admin]) VALUES (@kye, @val, @val2)
+END 
+ELSE 
+BEGIN 
+    UPDATE [dbo].[Users] 
+    SET [password] = @val, [admin]=@val2
+    WHERE [username] = @kye
+END ");
+            cmd.Parameters.AddWithValue("@username", newUsername);
+            cmd.Parameters.AddWithValue("@password", newPassword);
+            cmd.Parameters.AddWithValue("@admin", isAdmin);
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
-
-            common.writeLog(lblUsername.Text, "Delete Log", "Delete log upto id " + logId);
 
             reloadPage();
         }
@@ -69,9 +94,5 @@ namespace WebApplication1
             Server.TransferRequest(Request.Url.AbsolutePath, false);
         }
 
-        protected void lnkToUser_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Users.aspx");
-        }
     }
 }

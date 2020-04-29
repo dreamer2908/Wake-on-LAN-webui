@@ -121,5 +121,10 @@ namespace WebApplication1
             string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
             common.writeSettingDatabase_sendTo(sendWolTo);
         }
+
+        protected void lnkToUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Users.aspx");
+        }
     }
 }

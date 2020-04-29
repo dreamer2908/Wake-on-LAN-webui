@@ -8,6 +8,8 @@ using System.Web;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApplication1
 {
@@ -319,6 +321,22 @@ END ");
                 writeSettingDatabase_sendTo(defVal.ToString());
                 return defVal.ToString();
             }
+        }
+        #endregion
+
+        #region Password
+        public static string getSha1HashFromText(string text)
+        {
+            SHA1 sha1 = new SHA1CryptoServiceProvider();
+            byte[] temp = sha1.ComputeHash(Encoding.UTF8.GetBytes(text));
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < temp.Length; i++)
+            {
+                sb.Append(temp[i].ToString("x2"));
+            }
+
+            return sb.ToString();
         }
         #endregion
     }

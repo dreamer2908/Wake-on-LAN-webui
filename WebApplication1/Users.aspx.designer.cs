@@ -10,7 +10,7 @@
 namespace WebApplication1 {
     
     
-    public partial class Log {
+    public partial class WebForm1 {
         
         /// <summary>
         /// jsCode control.
@@ -40,13 +40,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Label lblUsername;
         
         /// <summary>
-        /// lnkLogOut control.
+        /// lnkLogout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkLogOut;
+        protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
         
         /// <summary>
         /// lnkToMain control.
@@ -67,31 +67,49 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToManage;
         
         /// <summary>
-        /// lnkToUser control.
+        /// lnkToLog control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkToUser;
+        protected global::System.Web.UI.WebControls.LinkButton lnkToLog;
         
         /// <summary>
-        /// txtDeleteLogId control.
+        /// txtNewUsername control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDeleteLogId;
+        protected global::System.Web.UI.WebControls.TextBox txtNewUsername;
         
         /// <summary>
-        /// btnDeleteLog control.
+        /// txtNewPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDeleteLog;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
+        
+        /// <summary>
+        /// ddlNewIsAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlNewIsAdmin;
+        
+        /// <summary>
+        /// btnAddNewUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddNewUser;
         
         /// <summary>
         /// SqlDataSource1 control.
@@ -103,12 +121,12 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
-        /// LogGridView control.
+        /// ComputersGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView LogGridView;
+        protected global::System.Web.UI.WebControls.GridView ComputersGridView;
     }
 }

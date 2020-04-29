@@ -17,20 +17,33 @@ namespace WebApplication1
         {
             string sessionId = this.Session.SessionID;
             label2.Text = sessionId;
-
-            //add a sessionid Cookie
-            Response.Cookies["sessionid"].Value = sessionId;
-            Response.Cookies["sessionid"].Expires = DateTime.Now.AddDays(30);
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        private static bool checkWebsiteLogin(string username, string _password, ref bool isAdmin)
         {
             bool isValid = false;
-            bool isAdmin = false;
+            isAdmin = false;
 
-            string username = TextBox1.Text;
-            string password = TextBox2.Text;
+            string password = common.getSha1HashFromText(_password);
 
+            SqlCommand cmd = new SqlCommand("SELECT [username], [password], [admin] FROM [dbo].[Users] WHERE [username] = @username AND [password] = @password;");
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@password", password);
+
+            int rows = common.queryDatabase(cmd, out DataTable dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                isValid = true;
+                isAdmin = (dt.Rows[0].ItemArray[2].ToString() == 1.ToString());
+            }
+
+            return isValid;
+        }
+
+        private static bool checkDomainLogin(string username, string password, ref bool isAdmin)
+        {
+            bool isValid;
             // create a "principal context" - e.g. your domain (could be machine, too)
             string domainServer = WebConfigurationManager.ConnectionStrings["domainServer"].ConnectionString;
             string domainUsername = WebConfigurationManager.ConnectionStrings["domainUsername"].ConnectionString;
@@ -53,27 +66,34 @@ namespace WebApplication1
                 }
             }
 
+            return isValid;
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            bool isValid = false;
+            bool isAdmin = false;
+
+            string username = TextBox1.Text;
+            string password = TextBox2.Text;
+
+            switch (ddlAuthentication.SelectedItem.Value)
+            {
+                case "0": isValid = checkDomainLogin(username, password, ref isAdmin); break;
+                case "1": isValid = checkWebsiteLogin(username, password, ref isAdmin); break;
+            }
+
             if (isValid)
             {
                 string sessionId = this.Session.SessionID;
-                //if (Request.Cookies["sessionid"] != null)
-                //{
-                //    sessionId = Server.HtmlEncode(Request.Cookies["sessionid"].Value);
-                //}
-                //else
-                //{
-                //    //add a sessionid Cookie
-                //    Response.Cookies["sessionid"].Value = sessionId;
-                //    Response.Cookies["sessionid"].Expires = DateTime.Now.AddDays(30);
-                //}
 
                 Sessions.writeSession(sessionId, true, username, isAdmin);
-                common.writeLog(username, "Login", "Login OK");
+                common.writeLog(username, "Login", "Login OK. Authentication = " + ddlAuthentication.SelectedItem.Text);
                 Response.Redirect("Default.aspx");
             }
             else
             {
-                common.writeLog(string.Empty, "Login", "Login failure: " + username);
+                common.writeLog(string.Empty, "Login", "Login failure: " + username + ". Authentication = " + ddlAuthentication.SelectedItem.Text);
                 Label1.Text = "Your username and password is incorrect";
                 Label1.ForeColor = System.Drawing.Color.Red;
             }
