@@ -45,9 +45,9 @@ namespace WebApplication1
             Response.Redirect("Default.aspx");
         }
 
-        protected void lnkToManage_Click(object sender, EventArgs e)
+        protected void lnkToComputer_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Manage.aspx");
+            Response.Redirect("Computers.aspx");
         }
 
         protected void btnDeleteLog_Click(object sender, EventArgs e)

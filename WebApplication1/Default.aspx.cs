@@ -29,7 +29,7 @@ namespace WebApplication1
                 lblUsername.Text = username;
 
                 // display the manage link if it's an admin
-                lnkToManage.Enabled = lnkToManage.Visible = isAdmin;
+                lnkToComputer.Enabled = lnkToComputer.Visible = isAdmin;
                 lnkToLog.Enabled = lnkToLog.Visible = isAdmin;
                 lnkToUser.Enabled = lnkToUser.Visible = isAdmin;
 
@@ -100,9 +100,9 @@ namespace WebApplication1
             Response.Redirect("Logout.aspx");
         }
 
-        protected void lnkToManage_Click(object sender, EventArgs e)
+        protected void lnkToComputer_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Manage.aspx");
+            Response.Redirect("Computers.aspx");
         }
 
         protected void lnkToUser_Click(object sender, EventArgs e)

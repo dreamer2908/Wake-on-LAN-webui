@@ -96,7 +96,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Manage.aspx" />
+    <Content Include="Computers.aspx" />
     <Content Include="Users.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +137,12 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sessions.cs" />
-    <Compile Include="Manage.aspx.cs">
-      <DependentUpon>Manage.aspx</DependentUpon>
+    <Compile Include="Computers.aspx.cs">
+      <DependentUpon>Computers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manage.aspx.designer.cs">
-      <DependentUpon>Manage.aspx</DependentUpon>
+    <Compile Include="Computers.aspx.designer.cs">
+      <DependentUpon>Computers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>
