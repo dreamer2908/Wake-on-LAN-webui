@@ -298,7 +298,7 @@ END ");
             cmd.Parameters.AddWithValue("@kye", "sendto");
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
-            if (rows > 0)
+            if (dt.Rows.Count > 0)
             {
                 string strVal = dt.Rows[0].ItemArray[1].ToString();
                 // check if it's an int and within the min/max
