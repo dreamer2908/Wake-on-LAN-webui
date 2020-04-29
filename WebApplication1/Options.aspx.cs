@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class Log : System.Web.UI.Page
+    public partial class Options : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,7 +24,10 @@ namespace WebApplication1
             string username = ses.username;
             lblUsername.Text = username;
 
-            SqlDataSource1.ConnectionString = WebConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            if (!IsPostBack)
+            {
+                ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase_sendTo();
+            }
         }
 
         #region admin links
@@ -77,18 +77,10 @@ namespace WebApplication1
         }
         #endregion
 
-        protected void btnDeleteLog_Click(object sender, EventArgs e)
+        protected void btnApplyOptions_Click(object sender, EventArgs e)
         {
-            string logId = txtDeleteLogId.Text;
-
-            SqlCommand cmd = new SqlCommand("DELETE FROM Log WHERE id <= @id");
-            cmd.Parameters.AddWithValue("@id", logId);
-
-            int rows = common.queryDatabase(cmd, out DataTable dt);
-
-            common.writeLog(lblUsername.Text, "Delete Log", "Delete log upto id " + logId);
-
-            reloadPage();
+            string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
+            common.writeSettingDatabase_sendTo(sendWolTo);
         }
     }
 }

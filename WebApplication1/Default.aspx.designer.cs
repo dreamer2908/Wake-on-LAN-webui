@@ -49,6 +49,24 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
         
         /// <summary>
+        /// spanAdminLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanAdminLink;
+        
+        /// <summary>
+        /// lnkToMain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkToMain;
+        
+        /// <summary>
         /// lnkToComputer control.
         /// </summary>
         /// <remarks>
@@ -67,6 +85,15 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToUser;
         
         /// <summary>
+        /// lnkToOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkToOptions;
+        
+        /// <summary>
         /// lnkToLog control.
         /// </summary>
         /// <remarks>
@@ -74,6 +101,15 @@ namespace WebApplication1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkToLog;
+        
+        /// <summary>
+        /// lnkToContact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkToContact;
         
         /// <summary>
         /// pcTable control.

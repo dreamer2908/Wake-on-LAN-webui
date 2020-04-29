@@ -29,11 +29,12 @@ namespace WebApplication1
             lblUsername.Text = username;
 
             SqlDataSource1.ConnectionString = WebConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+        }
 
-            if (!IsPostBack)
-            {
-                ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase_sendTo();
-            }
+        #region admin links
+        private void reloadPage()
+        {
+            Server.TransferRequest(Request.Url.AbsolutePath, false);
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
@@ -51,10 +52,31 @@ namespace WebApplication1
             Response.Redirect("Default.aspx");
         }
 
+        protected void lnkToComputer_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Computers.aspx");
+        }
+
+        protected void lnkToUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Users.aspx");
+        }
+
+        protected void lnkToOptions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Options.aspx");
+        }
+
         protected void lnkToLog_Click(object sender, EventArgs e)
         {
             Response.Redirect("Log.aspx");
         }
+
+        protected void lnkToContact_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Contact.aspx");
+        }
+        #endregion
 
         protected void btnAddNewPc_Click(object sender, EventArgs e)
         {
@@ -74,11 +96,6 @@ namespace WebApplication1
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
             reloadPage();
-        }
-
-        private void reloadPage()
-        {
-            Server.TransferRequest(Request.Url.AbsolutePath, false);
         }
 
         protected void btnGetIpFromPcName_Click(object sender, EventArgs e)
@@ -114,17 +131,6 @@ namespace WebApplication1
             {
                 lblErrorGetMacFromIp.Text = "Not found in ARP";
             }
-        }
-
-        protected void btnApplyOptions_Click(object sender, EventArgs e)
-        {
-            string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
-            common.writeSettingDatabase_sendTo(sendWolTo);
-        }
-
-        protected void lnkToUser_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Users.aspx");
         }
     }
 }

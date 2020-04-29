@@ -58,6 +58,15 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToMain;
         
         /// <summary>
+        /// lnkToComputer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkToComputer;
+        
+        /// <summary>
         /// lnkToUser control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace WebApplication1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkToUser;
+        
+        /// <summary>
+        /// lnkToOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkToOptions;
         
         /// <summary>
         /// lnkToLog control.
@@ -76,22 +94,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToLog;
         
         /// <summary>
-        /// ddlSendWolPackageTo control.
+        /// lnkToContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSendWolPackageTo;
-        
-        /// <summary>
-        /// btnApplyOptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnApplyOptions;
+        protected global::System.Web.UI.WebControls.LinkButton lnkToContact;
         
         /// <summary>
         /// txtNewUsername control.

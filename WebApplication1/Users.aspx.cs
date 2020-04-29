@@ -31,6 +31,13 @@ namespace WebApplication1
 
 
         }
+
+        #region admin links
+        private void reloadPage()
+        {
+            Server.TransferRequest(Request.Url.AbsolutePath, false);
+        }
+
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             redirectToLogin();
@@ -46,15 +53,31 @@ namespace WebApplication1
             Response.Redirect("Default.aspx");
         }
 
+        protected void lnkToComputer_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Computers.aspx");
+        }
+
+        protected void lnkToUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Users.aspx");
+        }
+
+        protected void lnkToOptions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Options.aspx");
+        }
+
         protected void lnkToLog_Click(object sender, EventArgs e)
         {
             Response.Redirect("Log.aspx");
         }
 
-        protected void lnkToComputer_Click(object sender, EventArgs e)
+        protected void lnkToContact_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Computers.aspx");
+            Response.Redirect("Contact.aspx");
         }
+        #endregion
 
         protected void btnAddUser_Click(object sender, EventArgs e)
         {
@@ -88,11 +111,5 @@ END ");
 
             reloadPage();
         }
-
-        private void reloadPage()
-        {
-            Server.TransferRequest(Request.Url.AbsolutePath, false);
-        }
-
     }
 }

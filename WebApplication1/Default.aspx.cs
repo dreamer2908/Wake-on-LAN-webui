@@ -29,9 +29,7 @@ namespace WebApplication1
                 lblUsername.Text = username;
 
                 // display the manage link if it's an admin
-                lnkToComputer.Enabled = lnkToComputer.Visible = isAdmin;
-                lnkToLog.Enabled = lnkToLog.Visible = isAdmin;
-                lnkToUser.Enabled = lnkToUser.Visible = isAdmin;
+                spanAdminLink.Visible = isAdmin;
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("<script  type='text/javascript'>");
@@ -90,6 +88,12 @@ namespace WebApplication1
             }
         }
 
+        #region admin links
+        private void reloadPage()
+        {
+            Server.TransferRequest(Request.Url.AbsolutePath, false);
+        }
+
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             redirectToLogin();
@@ -98,6 +102,11 @@ namespace WebApplication1
         private void redirectToLogin()
         {
             Response.Redirect("Logout.aspx");
+        }
+
+        protected void lnkToMain_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
         }
 
         protected void lnkToComputer_Click(object sender, EventArgs e)
@@ -110,9 +119,20 @@ namespace WebApplication1
             Response.Redirect("Users.aspx");
         }
 
+        protected void lnkToOptions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Options.aspx");
+        }
+
         protected void lnkToLog_Click(object sender, EventArgs e)
         {
             Response.Redirect("Log.aspx");
         }
+
+        protected void lnkToContact_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Contact.aspx");
+        }
+        #endregion
     }
 }

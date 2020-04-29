@@ -10,7 +10,7 @@
 namespace WebApplication1 {
     
     
-    public partial class Log {
+    public partial class Options {
         
         /// <summary>
         /// jsCode control.
@@ -103,39 +103,21 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.LinkButton lnkToContact;
         
         /// <summary>
-        /// txtDeleteLogId control.
+        /// ddlSendWolPackageTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDeleteLogId;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSendWolPackageTo;
         
         /// <summary>
-        /// btnDeleteLog control.
+        /// btnApplyOptions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDeleteLog;
-        
-        /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-        
-        /// <summary>
-        /// LogGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView LogGridView;
+        protected global::System.Web.UI.WebControls.Button btnApplyOptions;
     }
 }
