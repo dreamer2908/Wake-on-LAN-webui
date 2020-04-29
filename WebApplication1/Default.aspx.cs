@@ -40,7 +40,7 @@ namespace WebApplication1
                 cmd.Parameters.AddWithValue("@username", username);
 
                 int rows = common.queryDatabase(cmd, out DataTable dt);
-                string sendToMode = common.readSettingDatabase_sendTo();
+                string sendToMode = common.readSettingDatabase("sendto", 0, 0, 3).ToString();
 
                 foreach (DataRow pc in dt.Rows)
                 {

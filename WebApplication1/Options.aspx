@@ -47,9 +47,6 @@
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>
-                    <td colspan="2"><b>Options:</b></td>
-                </tr>
-                <tr>
                     <td>Send the Wake-on-LAN packet to</td>
                     <td>
                         <asp:DropDownList ID="ddlSendWolPackageTo" runat="server">
@@ -60,6 +57,43 @@
                         </asp:DropDownList>
                     </td>
                 </tr>
+            </table>
+            <p>&nbsp;</p>
+            <table style="margin-left: 0; margin-right: auto; border: none;">
+                <tr>
+                    <td><b>Mail Server</b></td>
+                </tr>
+                <tr>
+                    <td>Sender: </td>
+                    <td><asp:TextBox ID="txtSender" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td>SMTP Server: </td>
+                    <td><asp:TextBox ID="txtSmtpServer" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td>Port: </td>
+                    <td><asp:TextBox ID="txtPort" TextMode="Number" runat="server" min="0" max="65535" step="1"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td>SSL: </td>
+                    <td><asp:CheckBox ID="chbUseSsl" runat="server"></asp:CheckBox></td>
+                </tr>
+                <tr>
+                    <td>Authentication: </td>
+                    <td><asp:CheckBox ID="chbAuthenticationRequired" runat="server"></asp:CheckBox></td>
+                </tr>
+                <tr>
+                    <td>Username: </td>
+                    <td><asp:TextBox ID="txtUsername" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><asp:TextBox ID="txtPassword" TextMode="Password" runat="server"></asp:TextBox></td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>
                     <td>
                         <asp:Button ID="btnApplyOptions" runat="server" Text="Apply" OnClick="btnApplyOptions_Click" />

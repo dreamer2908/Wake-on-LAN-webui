@@ -262,7 +262,7 @@ namespace WebApplication1
         #endregion
 
         #region Settings from database
-        public static void writeSettingDatabase_sendTo(string val)
+        public static void writeSettingDatabase(string key, string val)
         {
             SqlCommand cmd = new SqlCommand(@"
 declare @kye varchar(50)
@@ -280,46 +280,85 @@ BEGIN
     SET [value] = @val
     WHERE [key] = @kye
 END ");
-            cmd.Parameters.AddWithValue("@k", "sendto");
+            cmd.Parameters.AddWithValue("@k", key);
             cmd.Parameters.AddWithValue("@v", val);
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
         }
 
-        public static string readSettingDatabase_sendTo()
+        public static void writeSettingDatabase(string key, int val)
         {
-            int defVal = 0;
-            int minVal = 0;
-            int maxVal = 3;
+            writeSettingDatabase(key, val.ToString());
+        }
 
-            int val = defVal;
+        public static void writeSettingDatabase(string key, bool val)
+        {
+            writeSettingDatabase(key, val.ToString());
+        }
+
+        public static string readSettingDatabase(string key, string defVal)
+        {
+            string val = defVal;
             bool valid = false;
 
-            // get the "value" by key "sendto" in table Settings
+            // get the "value" by "key" in table Settings
             SqlCommand cmd = new SqlCommand("SELECT [key], [value] FROM Settings WHERE [key] = @kye;");
-            cmd.Parameters.AddWithValue("@kye", "sendto");
+            cmd.Parameters.AddWithValue("@kye", key);
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
             if (dt.Rows.Count > 0)
             {
-                string strVal = dt.Rows[0].ItemArray[1].ToString();
-                // check if it's an int and within the min/max
-                bool isInt = int.TryParse(strVal, out val);
-                if (isInt && val <= maxVal && val >= minVal)
-                {
-                    valid = true;
-                }
+                val = dt.Rows[0].ItemArray[1].ToString();
+                valid = (val != null);
             }
 
             if (valid)
             {
-                return val.ToString();
+                return val;
             }
             else
             {
                 // write back the default value
-                writeSettingDatabase_sendTo(defVal.ToString());
-                return defVal.ToString();
+                writeSettingDatabase(key, defVal.ToString());
+                return defVal;
+            }
+        }
+
+        public static int readSettingDatabase(string key, int defVal, int minVal, int maxVal)
+        {
+            string strVal = readSettingDatabase(key, defVal.ToString());
+            int val = defVal;
+
+            // check if the value is a valid int and within min and max
+            bool isInt = int.TryParse(strVal, out val);
+            if (isInt && val <= maxVal && val >= minVal)
+            {
+                return val;
+            }
+            else
+            {
+                // if not write back the default value
+                writeSettingDatabase(key, defVal.ToString());
+                return defVal;
+            }
+        }
+
+        public static bool readSettingDatabase(string key, bool defVal)
+        {
+            string strVal = readSettingDatabase(key, defVal.ToString());
+
+            if (strVal == true.ToString())
+            {
+                return true;
+            }
+            else if (strVal == false.ToString())
+            {
+                return false;
+            }
+            else
+            {
+                writeSettingDatabase(key, defVal.ToString());
+                return defVal;
             }
         }
         #endregion

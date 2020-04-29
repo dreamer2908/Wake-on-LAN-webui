@@ -26,7 +26,23 @@ namespace WebApplication1
 
             if (!IsPostBack)
             {
-                ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase_sendTo();
+                ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase("sendto", 0, 0, 3).ToString();
+
+                string email_from = common.readSettingDatabase("email_from", "");
+                string email_host = common.readSettingDatabase("email_host", "");
+                int email_port = common.readSettingDatabase("email_port", 25, 0, 65536);
+                bool email_ssl = common.readSettingDatabase("email_ssl", false);
+                bool email_login = common.readSettingDatabase("email_login", true);
+                string email_user = common.readSettingDatabase("email_user", "");
+                string email_password = common.readSettingDatabase("email_password", "");
+
+                txtSender.Text = email_from;
+                txtSmtpServer.Text = email_host;
+                txtPort.Text = email_port.ToString();
+                chbUseSsl.Checked = email_ssl;
+                chbAuthenticationRequired.Checked = email_login;
+                txtUsername.Text = email_user;
+                txtPassword.Attributes["value"] = email_password;
             }
         }
 
@@ -80,7 +96,23 @@ namespace WebApplication1
         protected void btnApplyOptions_Click(object sender, EventArgs e)
         {
             string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
-            common.writeSettingDatabase_sendTo(sendWolTo);
+            common.writeSettingDatabase("sendto", sendWolTo);
+
+            string email_from = txtSender.Text;
+            string email_host = txtSmtpServer.Text;
+            string email_port = txtPort.Text;
+            bool email_ssl = chbUseSsl.Checked;
+            bool email_login = chbAuthenticationRequired.Checked;
+            string email_user = txtUsername.Text;
+            string email_password = txtPassword.Text;
+
+            common.writeSettingDatabase("email_from", email_from);
+            common.writeSettingDatabase("email_host", email_host);
+            common.writeSettingDatabase("email_port", email_port);
+            common.writeSettingDatabase("email_ssl", email_ssl);
+            common.writeSettingDatabase("email_login", email_login);
+            common.writeSettingDatabase("email_user", email_user);
+            common.writeSettingDatabase("email_password", email_password);
         }
     }
 }

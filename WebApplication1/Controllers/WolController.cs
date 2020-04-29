@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
                     valid = true;
                 }
             }
-            string sendToMode = valid ? sendto : common.readSettingDatabase_sendTo();
+            string sendToMode = valid ? sendto : common.readSettingDatabase("sendto", 0, 0, 3).ToString();
 
             var usedAddresses = wol.wake(mac, ip, subnet, sendToMode);
 
