@@ -68,6 +68,11 @@
                     <td><asp:TextBox ID="txtSender" runat="server"></asp:TextBox></td>
                 </tr>
                 <tr>
+                    <td>Receivers: </td>
+                    <td><asp:TextBox ID="txtReceivers" runat="server"></asp:TextBox></td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td>SMTP Server: </td>
                     <td><asp:TextBox ID="txtSmtpServer" runat="server"></asp:TextBox></td>
                 </tr>

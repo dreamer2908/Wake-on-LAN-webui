@@ -29,6 +29,7 @@ namespace WebApplication1
                 ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase("sendto", 0, 0, 3).ToString();
 
                 string email_from = common.readSettingDatabase("email_from", "");
+                string email_to = common.readSettingDatabase("email_to", "");
                 string email_host = common.readSettingDatabase("email_host", "");
                 int email_port = common.readSettingDatabase("email_port", 25, 0, 65536);
                 bool email_ssl = common.readSettingDatabase("email_ssl", false);
@@ -37,6 +38,7 @@ namespace WebApplication1
                 string email_password = common.readSettingDatabase("email_password", "");
 
                 txtSender.Text = email_from;
+                txtReceivers.Text = email_to;
                 txtSmtpServer.Text = email_host;
                 txtPort.Text = email_port.ToString();
                 chbUseSsl.Checked = email_ssl;
@@ -99,6 +101,7 @@ namespace WebApplication1
             common.writeSettingDatabase("sendto", sendWolTo);
 
             string email_from = txtSender.Text;
+            string email_to = txtReceivers.Text;
             string email_host = txtSmtpServer.Text;
             string email_port = txtPort.Text;
             bool email_ssl = chbUseSsl.Checked;
@@ -107,6 +110,7 @@ namespace WebApplication1
             string email_password = txtPassword.Text;
 
             common.writeSettingDatabase("email_from", email_from);
+            common.writeSettingDatabase("email_to", email_to);
             common.writeSettingDatabase("email_host", email_host);
             common.writeSettingDatabase("email_port", email_port);
             common.writeSettingDatabase("email_ssl", email_ssl);
