@@ -34,12 +34,16 @@ namespace WebApplication1
             contactTable.Visible = true;
             contactResult.Visible = false;
 
-            // import contents from paramenters
-            txtName.Text = Request.QueryString["name"] ?? string.Empty;
-            txtEmailAddress.Text = Request.QueryString["email"] ?? string.Empty;
-            txtPhoneNumber.Text = Request.QueryString["phone"] ?? string.Empty;
-            txtSubject.Text = Request.QueryString["subject"] ?? string.Empty;
-            txtMessage.Text = Request.QueryString["message"] ?? string.Empty;
+
+            if (!IsPostBack)
+            {
+                // import contents from paramenters
+                txtName.Text = Request.QueryString["name"] ?? string.Empty;
+                txtEmailAddress.Text = Request.QueryString["email"] ?? string.Empty;
+                txtPhoneNumber.Text = Request.QueryString["phone"] ?? string.Empty;
+                txtSubject.Text = Request.QueryString["subject"] ?? string.Empty;
+                txtMessage.Text = Request.QueryString["message"] ?? string.Empty;
+            }
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
