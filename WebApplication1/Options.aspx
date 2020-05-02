@@ -66,18 +66,30 @@
                 <tr>
                     <td>Sender: </td>
                     <td><asp:TextBox ID="txtSender" runat="server"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtSender" ErrorMessage="Please enter an email address" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
+                    </td>
                 </tr>
                 <tr>
                     <td>Recipients: </td>
                     <td><asp:TextBox ID="txtRecipients" runat="server" ToolTip="Use comma to separate multiple recipients. i.e `mr-a@mail.com, ms-b@mail.com`"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtRecipients" ErrorMessage="Please enter some recipients" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
+                    </td>
                 </tr>
                 <tr>
                     <td>SMTP Server: </td>
                     <td><asp:TextBox ID="txtSmtpServer" runat="server"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtSmtpServer" ErrorMessage="Please enter an IP or hostname" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
+                    </td>
                 </tr>
                 <tr>
                     <td>Port: </td>
                     <td><asp:TextBox ID="txtPort" TextMode="Number" runat="server" min="0" max="65535" step="1"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPort" ErrorMessage="Please specify a port" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
+                    </td>
                 </tr>
                 <tr>
                     <td>SSL: </td>
@@ -100,7 +112,7 @@
             <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnApplyOptions" runat="server" Text="Apply" OnClick="btnApplyOptions_Click" />
+                        <asp:Button ID="btnApplyOptions" runat="server" Text="Apply" OnClick="btnApplyOptions_Click" ValidationGroup="Apply" />
                     </td>
                 </tr>
             </table>
