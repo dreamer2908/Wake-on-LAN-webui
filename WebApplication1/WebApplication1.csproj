@@ -111,6 +111,7 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Ping2Controller.cs" />
     <Compile Include="Controllers\PingController.cs" />
     <Compile Include="Controllers\WolController.cs" />
     <Compile Include="Global.asax.cs">
