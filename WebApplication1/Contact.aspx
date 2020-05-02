@@ -47,7 +47,7 @@
                 &nbsp;[<asp:LinkButton ID="lnkToContact" runat="server" Text="Contact" OnClick="lnkToContact_Click"></asp:LinkButton>]
             </p>
             <p id="pNotLogin" runat="server" visible="false">You are not logged in. &nbsp;[<asp:LinkButton ID="LinkButton1" runat="server" Text="Back to Main" onclick="lnkToMain_Click" />]</p>
-            <table style="margin-left: 0; margin-right: auto; border: none;">
+            <table style="margin-left: 0; margin-right: auto; border: none;" id="contactTable" runat="server" visible="true">
                 <tr>
                     <td colspan="2"><b>Send an Email to IT Team</b> (<span id="spanItEmail" runat="server"></span>)</td>
                 </tr>
@@ -95,6 +95,7 @@
                     </td>
                 </tr>
             </table>
+            <p id="contactResult" runat="server" visible="false">Email sent sucessfully. We will contact you as soon as possible. <asp:LinkButton ID="LinkButton2" runat="server" Text="Click here to return to Main" onclick="lnkToMain_Click" />.</p>
         </div>
     </form>
 </body>

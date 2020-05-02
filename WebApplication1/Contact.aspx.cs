@@ -30,6 +30,9 @@ namespace WebApplication1
 
             string email_to = common.readSettingDatabase("email_to", "");
             spanItEmail.InnerText = email_to;
+
+            contactTable.Visible = true;
+            contactResult.Visible = false;
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
@@ -50,6 +53,9 @@ namespace WebApplication1
             common.writeLog(lblUsername.Text, "Contact", "Sent email to " + spanItEmail.InnerText);
             common.readEmailSenderParamenter();
             common.sendEmail(subject, body);
+
+            contactTable.Visible = false;
+            contactResult.Visible = true;
         }
 
         #region admin links
