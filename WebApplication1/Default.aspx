@@ -87,6 +87,10 @@
         };
 
         const getHostStatus = async (buttonId) => {
+            // call the wol api
+            var wolUrl = document.getElementById(buttonId).getAttribute("data-wol-url");
+            touchUrl(wolUrl);
+
             // get ping status again and again until countdown stops
             var counting;
             do {
@@ -108,6 +112,17 @@
 	        };
             var ip = document.getElementById(buttonId).getAttribute("data-ip");
 	        xhttp.open("GET", "/api/ping2?ip=" + ip, true);
+	        xhttp.send();
+        }
+
+        function touchUrl(url) {
+            // request the url, ignore any response
+	        var xhttp = new XMLHttpRequest();
+	        xhttp.onreadystatechange = function() {
+		        if (this.readyState == 4 && this.status == 200) {
+		        }
+	        };
+	        xhttp.open("GET", url, true);
 	        xhttp.send();
         }
 

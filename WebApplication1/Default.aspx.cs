@@ -73,7 +73,9 @@ namespace WebApplication1
                     // action
                     String uuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
                     TableCell cell5 = new TableCell();
-                    cell5.Text = string.Format("<button id='{0}' data-ip='{1}' data-contact-url='/Contact.aspx?name={2}&message=My%20computer%20won%27t%20wake%20up.%20Name%20%3D%20{3}.%20IP%20%3D%20{1}.%20MAC%20%3D%20{4}.&subject=Computer%20{3}%20Failed' onclick=\"countDown('{0}', 'Waiting ', 100); getHostStatus('{0}'); return false; \">Wake Up</button>", uuid, ip, username, pcname, mac);
+                    string wolurl = string.Format("/api/wol?mac={0}&ip={1}&subnet={2}&pcname={3}&username={4}&sendto={5}", mac, ip, subnet, pcname, username, sendToMode);
+                    string contacturl = string.Format("/Contact.aspx?name={2}&message=My%20computer%20won%27t%20wake%20up.%20Name%20%3D%20{3}.%20IP%20%3D%20{1}.%20MAC%20%3D%20{4}.&subject=Computer%20{3}%20Failed", uuid, ip, username, pcname, mac);
+                    cell5.Text = string.Format("<button id='{0}' data-ip='{1}' data-wol-url='{2}' data-contact-url='{3}' onclick=\"countDown('{0}', 'Waiting ', 100); getHostStatus('{0}'); return false; \">Wake Up</button>", uuid, ip, wolurl, contacturl);
                     row.Cells.Add(cell5);
 
                     pcTable.Rows.Add(row);
