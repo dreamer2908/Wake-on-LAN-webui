@@ -38,7 +38,7 @@ namespace WebApplication1
                 string email_password = common.readSettingDatabase("email_password", "");
 
                 txtSender.Text = email_from;
-                txtReceivers.Text = email_to;
+                txtRecipients.Text = email_to;
                 txtSmtpServer.Text = email_host;
                 txtPort.Text = email_port.ToString();
                 chbUseSsl.Checked = email_ssl;
@@ -101,7 +101,7 @@ namespace WebApplication1
             common.writeSettingDatabase("sendto", sendWolTo);
 
             string email_from = txtSender.Text;
-            string email_to = txtReceivers.Text;
+            string email_to = txtRecipients.Text;
             string email_host = txtSmtpServer.Text;
             string email_port = txtPort.Text;
             bool email_ssl = chbUseSsl.Checked;

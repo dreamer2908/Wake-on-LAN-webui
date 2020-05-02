@@ -121,13 +121,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.TextBox txtSender;
         
         /// <summary>
-        /// txtReceivers control.
+        /// txtRecipients control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReceivers;
+        protected global::System.Web.UI.WebControls.TextBox txtRecipients;
         
         /// <summary>
         /// txtSmtpServer control.

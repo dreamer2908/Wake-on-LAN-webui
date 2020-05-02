@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net.Mail;
 
 namespace WebApplication1
 {
@@ -250,14 +251,20 @@ namespace WebApplication1
             return context.Request.ServerVariables["REMOTE_ADDR"];
         }
 
-        public static string formatDateTime(DateTime d)
+        public static string getNowStringForFilename()
         {
-            return d.ToString("yyyy-MM-dd HH:mm:ss");
+            return DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         }
 
-        public static string getNowDateTime()
+        public static string datetimeCommonFormatString = "yyyy-MM-dd HH:mm:ss";
+        public static string getNowString()
         {
             return formatDateTime(DateTime.Now);
+        }
+
+        public static string formatDateTime(DateTime d)
+        {
+            return d.ToString(datetimeCommonFormatString);
         }
         #endregion
 
@@ -376,6 +383,203 @@ END ");
             }
 
             return sb.ToString();
+        }
+        #endregion
+
+
+        #region email
+        static string email_host = "";
+        static int email_port = 25;
+        static bool email_ssl = false;
+        static string email_from = "";
+        static string email_user = "";
+        static bool email_login = true;
+        static string email_password = "";
+        static List<string> email_to = new List<string>();
+
+        public static void readEmailSenderParamenter()
+        {
+            email_from = common.readSettingDatabase("email_from", "");
+            email_host = common.readSettingDatabase("email_host", "");
+            email_port = common.readSettingDatabase("email_port", 25, 0, 65536);
+            email_ssl = common.readSettingDatabase("email_ssl", false);
+            email_login = common.readSettingDatabase("email_login", true);
+            email_user = common.readSettingDatabase("email_user", "");
+            email_password = common.readSettingDatabase("email_password", "");
+
+            string email_tos = common.readSettingDatabase("email_to", "");
+            splitMultivalueSettingStringToList(email_tos, separatorComma, email_to);
+        }
+
+        public static void setEmailSenderParamenter(string _email_host, int _email_port, bool _email_ssl, string _email_from, string _email_user, string _email_password)
+        {
+            email_host = _email_host;
+            email_port = _email_port;
+            email_ssl = _email_ssl;
+            email_from = _email_from;
+            email_user = _email_user;
+            email_password = _email_password;
+        }
+
+        // send with above paramenters
+        public static void sendEmail(string email_subject, string email_body, List<string> attachments = null)
+        {
+            sendEmail(email_host, email_port, email_ssl, email_from, email_user, email_password, email_to, email_subject, email_body, attachments);
+        }
+
+        // single receipent
+        public static void sendEmail(string email_to, string email_subject, string email_body, List<string> attachments = null)
+        {
+            sendEmail(email_host, email_port, email_ssl, email_from, email_user, email_password, email_to, email_subject, email_body, attachments);
+        }
+
+        // multiple receipents
+        public static void sendEmail(List<string> email_to, string email_subject, string email_body, List<string> attachments = null)
+        {
+            sendEmail(email_host, email_port, email_ssl, email_from, email_user, email_password, email_to, email_subject, email_body, attachments);
+        }
+
+        // single receipent
+        public static void sendEmail(string email_host, int email_port, bool email_ssl, string email_from, string email_user, string email_password, string email_to, string email_subject, string email_body, List<string> attachments = null)
+        {
+            List<string> to = new List<string>();
+            to.Add(email_to);
+            sendEmail(email_host, email_port, email_ssl, email_from, email_user, email_password, to, email_subject, email_body, attachments);
+        }
+
+        // multiple receipents
+        public static void sendEmail(string email_host, int email_port, bool email_ssl, string email_from, string email_user, string email_password, List<string> email_to, string email_subject, string email_body, List<string> attachments = null)
+        {
+            using (SmtpClient SmtpServer = new SmtpClient(email_host))
+            {
+                using (MailMessage mail = new MailMessage())
+                {
+                    try
+                    {
+                        mail.From = new MailAddress(email_from);
+                        foreach (string em in email_to)
+                        {
+                            mail.To.Add(em);
+                        }
+                        mail.Subject = email_subject;
+                        mail.IsBodyHtml = true;
+                        mail.Body = convertTextToHtml(email_body);
+                        mail.BodyEncoding = UTF8Encoding.UTF8;
+
+                        // attach files
+                        if (attachments != null)
+                        {
+                            foreach (var filename in attachments)
+                            {
+                                mail.Attachments.Add(new Attachment(filename));
+                                // MessageBox.Show("Added attachment to email");
+                            }
+                        }
+
+                        SmtpServer.Port = email_port;
+                        SmtpServer.Credentials = new System.Net.NetworkCredential(email_user, email_password);
+                        SmtpServer.EnableSsl = email_ssl;
+
+                        SmtpServer.Send(mail);
+
+                        // MessageBox.Show("mail Send");
+                        Console.WriteLine("mail Send");
+                    }
+                    catch (Exception ex)
+                    {
+                        // MessageBox.Show(ex.ToString());
+                        Console.WriteLine(ex.ToString());
+                    }
+                }
+            }
+        }
+
+        private static string convertTextToHtml(string input)
+        {
+            string[] lines = splitLines(input);
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string text in lines)
+            {
+                string encoded = System.Net.WebUtility.HtmlEncode(text);
+                sb.AppendLine("<pre>" + encoded + "</pre>");
+            }
+
+            return sb.ToString();
+        }
+
+        public static string[] splitLines(string text)
+        {
+            string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            return lines;
+        }
+
+        public static string[] customSplitLines(string text)
+        {
+            List<string> result = new List<string>();
+
+            string empty = " "; // workaround for Outlook ignoring totally empty line
+
+            string thisLine = empty;
+            int i = 0;
+            while (i < text.Length)
+            {
+                if (text[i] == '\n')
+                {
+                    result.Add(thisLine);
+                    thisLine = empty;
+                    i++;
+                }
+                else if (text[i] == '\r')
+                {
+                    result.Add(thisLine);
+                    thisLine = empty;
+
+                    if (text[i + 1] == '\n')
+                    {
+                        i += 2;
+                    }
+                    else
+                    {
+                        i += 1;
+                    }
+                }
+                else
+                {
+                    thisLine = thisLine + text[i].ToString();
+                    i++;
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        public static bool splitKeyValue(string line, ref string key, ref string value)
+        {
+            string[] parts = line.Split(new string[] { "=" }, 2, StringSplitOptions.None);
+            if (parts.Length == 2)
+            {
+                key = parts[0];
+                value = parts[1];
+                return true;
+            }
+            return false;
+        }
+
+        private static string[] separatorComma = new string[] { "," };
+        public static void splitMultivalueSettingStringToList(string source, string[] separator, List<string> target)
+        {
+            target.Clear();
+            string[] array = source.Split(separator, StringSplitOptions.None);
+            for (int i = 0; i < array.Length; i++)
+            {
+                string sub = array[i].Trim();
+                if (sub.Length > 0)
+                {
+                    target.Add(sub);
+                }
+            }
         }
         #endregion
     }

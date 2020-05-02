@@ -68,9 +68,8 @@
                     <td><asp:TextBox ID="txtSender" runat="server"></asp:TextBox></td>
                 </tr>
                 <tr>
-                    <td>Receivers: </td>
-                    <td><asp:TextBox ID="txtReceivers" runat="server"></asp:TextBox></td>
-                    <td></td>
+                    <td>Recipients: </td>
+                    <td><asp:TextBox ID="txtRecipients" runat="server" ToolTip="Use comma to separate multiple recipients. i.e `mr-a@mail.com, ms-b@mail.com`"></asp:TextBox></td>
                 </tr>
                 <tr>
                     <td>SMTP Server: </td>
