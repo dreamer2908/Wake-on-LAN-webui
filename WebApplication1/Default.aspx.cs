@@ -73,7 +73,7 @@ namespace WebApplication1
                     // action
                     String uuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
                     TableCell cell5 = new TableCell();
-                    cell5.Text = string.Format("<button id='{0}' onClick='f_{0}(); return false;'>Wake Up</a>", uuid);
+                    cell5.Text = string.Format("<button id='{0}' onClick='f_{0}(); return false;'>Wake Up</button>", uuid);
                     sb.AppendLine(string.Format("function f_{0}(){{", uuid));
                     sb.AppendLine(string.Format("document.getElementById('my_iframe').src = '/api/wol?mac={0}&ip={1}&subnet={2}&pcname={3}&username={4}&sendto={5}'", mac, ip, subnet, pcname, username, sendToMode));
                     sb.AppendLine(string.Format("document.getElementById('{0}').textContent = '{1}'", uuid, "Sent OK"));
