@@ -61,9 +61,9 @@ namespace WebApplication1
 
             string body = string.Format("{0} \nTimestamp: {1} \nUsername: {7} \nName: {2} \nEmail: {3} \nPhone: {4} \nSubject: {5} \nMessage: \n{6}", emailHeadline, time, user, userEmail, userPhoneNumber, userSubject, userMessage, lblUsername.Text);
             
-            common.writeLog(lblUsername.Text, "Contact", "Sent email to " + spanItEmail.InnerText);
             common.readEmailSenderParamenter();
             common.sendEmail(subject, body);
+            common.writeLog(lblUsername.Text, "Contact", "Sent email to " + common.getEmailToAddresses());
 
             contactTable.Visible = false;
             contactResult.Visible = true;

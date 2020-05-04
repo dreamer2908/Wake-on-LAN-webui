@@ -397,6 +397,11 @@ END ");
         static string email_password = "";
         static List<string> email_to = new List<string>();
 
+        public static string getEmailToAddresses()
+        {
+            return string.Join("|", email_to);
+        }
+
         public static void readEmailSenderParamenter()
         {
             email_from = common.readSettingDatabase("email_from", "");
@@ -408,7 +413,8 @@ END ");
             email_password = common.readSettingDatabase("email_password", "");
 
             string email_tos = common.readSettingDatabase("email_to", "");
-            splitMultivalueSettingStringToList(email_tos, separatorComma, email_to);
+            email_to.Clear();
+            email_to.AddRange(splitLines(email_tos, true));
         }
 
         public static void setEmailSenderParamenter(string _email_host, int _email_port, bool _email_ssl, string _email_from, string _email_user, string _email_password)
@@ -509,9 +515,10 @@ END ");
             return sb.ToString();
         }
 
-        public static string[] splitLines(string text)
+        public static string[] splitLines(string text, bool removeEmpty = false)
         {
-            string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            var option = removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
+            string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, option);
             return lines;
         }
 

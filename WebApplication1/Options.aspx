@@ -72,7 +72,7 @@
                 </tr>
                 <tr>
                     <td>Recipients: </td>
-                    <td><asp:TextBox ID="txtRecipients" runat="server" ToolTip="Use comma to separate multiple recipients. i.e `mr-a@mail.com, ms-b@mail.com`"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtRecipients" TextMode="MultiLine" runat="server" ToolTip="One recipient on each line."></asp:TextBox></td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtRecipients" ErrorMessage="Please enter some recipients" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
                     </td>
