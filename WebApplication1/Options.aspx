@@ -47,6 +47,9 @@
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>
+                    <td><b>Wake-on-LAN</b></td>
+                </tr>
+                <tr>
                     <td>Send the Wake-on-LAN packet to</td>
                     <td>
                         <asp:DropDownList ID="ddlSendWolPackageTo" runat="server">
@@ -55,6 +58,13 @@
                             <asp:ListItem Text="Broadcast Address According to IP Address" Value="2"></asp:ListItem>
                             <asp:ListItem Text="IP Address of the device" Value="3"></asp:ListItem>
                         </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td>"Wake Up" count down (seconds): </td>
+                    <td><asp:TextBox ID="txtCountDown" TextMode="Number" runat="server" min="0" max="65535" step="1"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtCountDown" ErrorMessage="Please specify a duration" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </table>

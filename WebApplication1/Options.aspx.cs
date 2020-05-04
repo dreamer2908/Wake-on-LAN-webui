@@ -27,6 +27,7 @@ namespace WebApplication1
             if (!IsPostBack)
             {
                 ddlSendWolPackageTo.SelectedValue = common.readSettingDatabase("sendto", 0, 0, 3).ToString();
+                txtCountDown.Text = common.readSettingDatabase("countdown", 100, 0, 65536).ToString();
 
                 string email_from = common.readSettingDatabase("email_from", "");
                 string email_to = common.readSettingDatabase("email_to", "");
@@ -101,6 +102,9 @@ namespace WebApplication1
         {
             string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
             common.writeSettingDatabase("sendto", sendWolTo);
+
+            string countdown = txtCountDown.Text;
+            common.writeSettingDatabase("countdown", countdown);
 
             string email_from = txtSender.Text;
             string email_to = txtRecipients.Text;
