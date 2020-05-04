@@ -32,9 +32,6 @@
                 <tr>
                     <td>Password:</td>
                     <td><asp:TextBox ID="TextBox2" TextMode="Password" runat="server"></asp:TextBox></td>
-                    <td>  
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox2" ErrorMessage="Please Enter Your Password" ForeColor="Red"></asp:RequiredFieldValidator>  
-                    </td>  
                 </tr>
                 <tr>
                     <td colspan="2"><asp:Label ID="Label1" runat="server">&nbsp;</asp:Label></td>

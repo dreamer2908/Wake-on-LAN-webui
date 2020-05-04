@@ -43,3 +43,5 @@ CREATE TABLE [dbo].[Users]
     [password] VARCHAR(50) NOT NULL, 
     [admin] INT NOT NULL
 )
+
+INSERT INTO [dbo].[Users] ([username], [password], [admin]) VALUES ('administrator', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', 1)
