@@ -273,7 +273,7 @@ namespace WebApplication1
         {
             SqlCommand cmd = new SqlCommand(@"
 declare @kye varchar(50)
-declare @val varchar(50)
+declare @val nvarchar(MAX)
 set @kye = @k
 set @val = @v
 
