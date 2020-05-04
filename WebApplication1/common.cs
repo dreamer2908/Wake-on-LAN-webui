@@ -414,7 +414,31 @@ END ");
 
             string email_tos = common.readSettingDatabase("email_to", "");
             email_to.Clear();
-            email_to.AddRange(splitLines(email_tos, true));
+            foreach (string address in splitLines(email_tos, true))
+            {
+                if (isValidEmailAddress(address))
+                {
+                    email_to.Add(address);
+                }
+            }
+        }
+
+        public static bool isValidEmailAddress(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (Exception ex) when (
+                ex is FormatException
+                || ex is ArgumentException
+                || ex is ArgumentNullException
+            )
+            {
+                return false;
+            }
         }
 
         public static void setEmailSenderParamenter(string _email_host, int _email_port, bool _email_ssl, string _email_from, string _email_user, string _email_password)
@@ -465,7 +489,10 @@ END ");
                         mail.From = new MailAddress(email_from);
                         foreach (string em in email_to)
                         {
-                            mail.To.Add(em);
+                            if (isValidEmailAddress(em))
+                            {
+                                mail.To.Add(em);
+                            }
                         }
                         mail.Subject = email_subject;
                         mail.IsBodyHtml = true;
