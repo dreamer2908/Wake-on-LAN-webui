@@ -75,28 +75,28 @@
                 </tr>
                 <tr>
                     <td>Sender: </td>
-                    <td><asp:TextBox ID="txtSender" runat="server"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtSender" runat="server" Width="20em"></asp:TextBox></td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtSender" ErrorMessage="Please enter an email address" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
                     </td>
                 </tr>
                 <tr>
                     <td>Recipients: </td>
-                    <td><asp:TextBox ID="txtRecipients" TextMode="MultiLine" runat="server" ToolTip="One recipient on each line."></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtRecipients" TextMode="MultiLine" runat="server" ToolTip="One recipient on each line." Width="20em" Rows="5"></asp:TextBox></td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtRecipients" ErrorMessage="Please enter some recipients" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
                     </td>
                 </tr>
                 <tr>
                     <td>SMTP Server: </td>
-                    <td><asp:TextBox ID="txtSmtpServer" runat="server"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtSmtpServer" runat="server" Width="20em"></asp:TextBox></td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtSmtpServer" ErrorMessage="Please enter an IP or hostname" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
                     </td>
                 </tr>
                 <tr>
                     <td>Port: </td>
-                    <td><asp:TextBox ID="txtPort" TextMode="Number" runat="server" min="0" max="65535" step="1"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtPort" TextMode="Number" runat="server" min="0" max="65535" step="1" Width="20em"></asp:TextBox></td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPort" ErrorMessage="Please specify a port" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
                     </td>
@@ -111,15 +111,15 @@
                 </tr>
                 <tr>
                     <td>Username: </td>
-                    <td><asp:TextBox ID="txtUsername" runat="server"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtUsername" runat="server" Width="20em"></asp:TextBox></td>
                 </tr>
                 <tr>
                     <td>Password: </td>
-                    <td><asp:TextBox ID="txtPassword" TextMode="Password" runat="server"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtPassword" TextMode="Password" runat="server" Width="20em"></asp:TextBox></td>
                 </tr>
                 <tr>
                     <td>Contact Email Real Subject: </td>
-                    <td><asp:TextBox ID="txtSubject" runat="server" ToolTip="Example: Help Desk Request From <{0}>"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtSubject" runat="server" ToolTip="Example: Help Desk Request From <{0}>" Width="20em"></asp:TextBox></td>
                     <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtSubject" ErrorMessage="Please specify a subject" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>
                     </td>
