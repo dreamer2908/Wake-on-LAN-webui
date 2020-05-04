@@ -36,6 +36,7 @@ namespace WebApplication1
                 bool email_login = common.readSettingDatabase("email_login", true);
                 string email_user = common.readSettingDatabase("email_user", "");
                 string email_password = common.readSettingDatabase("email_password", "");
+                string email_subject = common.readSettingDatabase("email_subject", "");
 
                 txtSender.Text = email_from;
                 txtRecipients.Text = email_to;
@@ -45,6 +46,7 @@ namespace WebApplication1
                 chbAuthenticationRequired.Checked = email_login;
                 txtUsername.Text = email_user;
                 txtPassword.Attributes["value"] = email_password;
+                txtSubject.Text = email_subject;
             }
         }
 
@@ -108,6 +110,7 @@ namespace WebApplication1
             bool email_login = chbAuthenticationRequired.Checked;
             string email_user = txtUsername.Text;
             string email_password = txtPassword.Text;
+            string email_subject = txtSubject.Text;
 
             common.writeSettingDatabase("email_from", email_from);
             common.writeSettingDatabase("email_to", email_to);
@@ -117,6 +120,7 @@ namespace WebApplication1
             common.writeSettingDatabase("email_login", email_login);
             common.writeSettingDatabase("email_user", email_user);
             common.writeSettingDatabase("email_password", email_password);
+            common.writeSettingDatabase("email_subject", email_subject);
         }
     }
 }

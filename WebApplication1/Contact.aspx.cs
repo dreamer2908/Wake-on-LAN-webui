@@ -54,7 +54,8 @@ namespace WebApplication1
             string userSubject = txtSubject.Text;
             string userMessage = txtMessage.Text;
 
-            string subject = string.Format("[WoL Web] Help Desk Request From <{0}>", user);
+            string email_subject = common.readSettingDatabase("email_subject", "");
+            string subject = string.Format(email_subject, user);
             string emailHeadline = "*** This is a system generated email, do not reply to this email id ***\n";
 
             string time = common.getNowString();

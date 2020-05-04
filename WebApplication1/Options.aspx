@@ -107,6 +107,13 @@
                     <td>Password: </td>
                     <td><asp:TextBox ID="txtPassword" TextMode="Password" runat="server"></asp:TextBox></td>
                 </tr>
+                <tr>
+                    <td>Contact Email Real Subject: </td>
+                    <td><asp:TextBox ID="txtSubject" runat="server" ToolTip="Example: Help Desk Request From <{0}>"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtSubject" ErrorMessage="Please specify a subject" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
             </table>
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">
