@@ -91,7 +91,7 @@
                     <asp:BoundField DataField="admin" HeaderText="Is Admin" />
                     <asp:TemplateField ShowHeader="false">
                         <ItemTemplate>
-                            <asp:Button ID="btnGridRowDelete" runat="server" CausesValidation="false" CommandName="Delete" Text="Delete"/>
+                            <asp:Button ID="btnGridRowDelete" runat="server" CausesValidation="false" CommandName="Delete" Text="Delete" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("username") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

@@ -109,7 +109,22 @@ END ");
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
+            Sessions.readSession(this.Session.SessionID, out Sessions.session ses);
+            common.writeLog(ses.username, "Users", "Add/Edit user " + newUsername);
+
             reloadPage();
+        }
+
+        protected void btnGridRowDelete_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+                string username = e.CommandArgument.ToString();
+                Sessions.readSession(this.Session.SessionID, out Sessions.session ses);
+                common.writeLog(ses.username, "Users", "Delete user " + username);
+
+                reloadPage();
+            }
         }
     }
 }
