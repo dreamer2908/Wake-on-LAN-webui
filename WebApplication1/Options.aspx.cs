@@ -125,6 +125,10 @@ namespace WebApplication1
             common.writeSettingDatabase("email_user", email_user);
             common.writeSettingDatabase("email_password", email_password);
             common.writeSettingDatabase("email_subject", email_subject);
+
+            string sessionId = this.Session.SessionID;
+            Sessions.readSession(sessionId, out Sessions.session ses);
+            common.writeLog(ses.username, "Options", "Changed options");
         }
     }
 }
