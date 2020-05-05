@@ -95,6 +95,9 @@ namespace WebApplication1
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
+            Sessions.readSession(this.Session.SessionID, out Sessions.session ses);
+            common.writeLog(ses.username, "Computers", string.Format("Add PC username = {0}, pcname = {1}, ip = {2}, mac = {3}", newUsername, newPcName, newIp, newMac));
+
             reloadPage();
         }
 
@@ -130,6 +133,21 @@ namespace WebApplication1
             else
             {
                 lblErrorGetMacFromIp.Text = "Not found in ARP";
+            }
+        }
+
+        protected void btnGridRowDelete_Command(object sender, CommandEventArgs e)
+        {
+            string id = e.CommandArgument.ToString();
+            Sessions.readSession(this.Session.SessionID, out Sessions.session ses);
+
+            if (e.CommandName == "Delete")
+            {
+                common.writeLog(ses.username, "Computers", "Delete computer id = " + id);
+            }
+            else if (e.CommandName == "Update")
+            {
+                common.writeLog(ses.username, "Computers", "Update computer id = " + id);
             }
         }
     }
