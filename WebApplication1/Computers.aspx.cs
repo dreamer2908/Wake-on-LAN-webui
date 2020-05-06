@@ -149,6 +149,33 @@ namespace WebApplication1
             {
                 common.writeLog(ses.username, "Computers", "Update computer id = " + id);
             }
+            else if (e.CommandName == "Wake")
+            {
+                common.writeLog(ses.username, "Computers", string.Format("Wake up computer id = {0}", id));
+
+                // read PC info from the database
+                string sqlcommand = "SELECT * FROM Computers WHERE id=@di";
+                SqlCommand cmd = new SqlCommand(sqlcommand);
+                cmd.Parameters.AddWithValue("@di", id);
+
+                int rows = common.queryDatabase(cmd, out DataTable dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    var pc = dt.Rows[0];
+                    string pcname = pc.ItemArray[2].ToString();
+                    string ip = pc.ItemArray[3].ToString();
+                    string subnet = pc.ItemArray[4].ToString();
+                    string mac = pc.ItemArray[5].ToString();
+
+                    string username = lblUsername.Text;
+                    string sendToMode = common.readSettingDatabase("sendto", 0, 0, 3).ToString();
+
+                    // call the api without going through web address
+                    var api = new Controllers.WolController();
+                    api.Get(mac, ip, subnet, username, pcname, sendToMode);
+                }
+            }
         }
     }
 }

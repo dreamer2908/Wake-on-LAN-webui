@@ -130,6 +130,7 @@ END
                         <ItemTemplate>
                             <asp:Button ID="btnGridRowEdit" runat="server" CausesValidation="false" CommandName="Edit" Text="Edit"/>
                             <asp:Button ID="btnGridRowDelete" runat="server" CausesValidation="false" CommandName="Delete" Text="Delete" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
+                            <asp:Button ID="btnGridRowWakeUp" runat="server" CausesValidation="false" CommandName="Wake" Text="Wake Up" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:Button ID="btnGridRowUpdate" runat="server" CausesValidation="false" CommandName="Update" Text="Save" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
