@@ -74,6 +74,20 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Your Skype ID: </td>
+                    <td><asp:TextBox ID="txtSkypeId" runat="server"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtSkypeId" ErrorMessage="Please enter your Skype ID" ForeColor="Red" ValidationGroup="Send"></asp:RequiredFieldValidator>  
+                    </td>
+                </tr>
+                <tr>
+                    <td>Your WeChat ID: </td>
+                    <td><asp:TextBox ID="txtWechatId" runat="server"></asp:TextBox></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtWechatId" ErrorMessage="Please enter your WeChat ID" ForeColor="Red" ValidationGroup="Send"></asp:RequiredFieldValidator>  
+                    </td>
+                </tr>
+                <tr>
                     <td>Subject: </td>
                     <td><asp:TextBox ID="txtSubject" runat="server"></asp:TextBox></td>
                     <td>

@@ -13,13 +13,23 @@ namespace WebApplication1
         {
             string sessionId = this.Session.SessionID;
             Sessions.readSession(sessionId, out Sessions.session ses);
-            
+
+            string paramUsername = Request.QueryString["username"] ?? string.Empty;
+
             if (ses.isLoggedIn)
             {
                 lblUsername.Text = ses.username;
                 pLogin.Visible = true;
                 pNotLogin.Visible = false;
                 spanAdminLink.Visible = ses.isAdmin;
+            }
+            else if (!string.IsNullOrEmpty(paramUsername))
+            {
+                // import username from paramenter
+                lblUsername.Text = paramUsername;
+                pLogin.Visible = true;
+                pNotLogin.Visible = false;
+                spanAdminLink.Visible = false;
             }
             else
             {
@@ -60,7 +70,7 @@ namespace WebApplication1
 
             string time = common.getNowString();
 
-            string body = string.Format("{0} \nTimestamp: {1} \nUsername: {7} \nName: {2} \nEmail: {3} \nPhone: {4} \nSubject: {5} \nMessage: \n{6}", emailHeadline, time, user, userEmail, userPhoneNumber, userSubject, userMessage, lblUsername.Text);
+            string body = string.Format("{0} \nTimestamp: {1} \nUsername: {7} \nName: {2} \nEmail: {3} \nPhone: {4} \nSkype: {8} \nWeChat: {9} \nSubject: {5} \nMessage: \n{6}", emailHeadline, time, user, userEmail, userPhoneNumber, userSubject, userMessage, lblUsername.Text, txtSkypeId.Text, txtWechatId.Text);
             
             common.readEmailSenderParamenter();
             common.sendEmail(subject, body);
