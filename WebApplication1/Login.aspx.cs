@@ -20,7 +20,7 @@ namespace WebApplication1
 
             // get domain display name from web.config
             string domainName = WebConfigurationManager.ConnectionStrings["domainName"].ConnectionString;
-            ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + "User";
+            ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + " User";
         }
 
         private static bool checkWebsiteLogin(string username, string _password, ref bool isAdmin)
