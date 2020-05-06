@@ -17,6 +17,10 @@ namespace WebApplication1
         {
             string sessionId = this.Session.SessionID;
             label2.Text = sessionId;
+
+            // get domain display name from web.config
+            string domainName = WebConfigurationManager.ConnectionStrings["domainName"].ConnectionString;
+            ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + "User";
         }
 
         private static bool checkWebsiteLogin(string username, string _password, ref bool isAdmin)
@@ -97,6 +101,11 @@ namespace WebApplication1
                 Label1.Text = "Your username and password is incorrect";
                 Label1.ForeColor = System.Drawing.Color.Red;
             }
+        }
+
+        protected void lnkToContact_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Contact.aspx");
         }
     }
 }

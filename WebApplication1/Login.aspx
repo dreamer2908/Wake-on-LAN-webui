@@ -11,7 +11,10 @@
     <form id="form1" runat="server">  
         <div >  
             <table style="margin-left: 0; margin-right: auto;">
-                <tr><td style="text-align: center"><strong>Login Form</strong></td></tr>  
+                <tr>
+                    <td style="text-align: center"><strong>Login Form</strong></td>
+                    <td>[<asp:LinkButton ID="lnkToContact" runat="server" Text="Contact" OnClick="lnkToContact_Click"></asp:LinkButton>]</td>
+                </tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr>
                     <td>Authentication:</td>
@@ -26,7 +29,7 @@
                     <td>Username:</td>
                     <td><asp:TextBox ID="TextBox1" runat="server"></asp:TextBox></td>
                     <td>  
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox1" ErrorMessage="Please Enter Your Username" ForeColor="Red"></asp:RequiredFieldValidator>  
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox1" ErrorMessage="Please Enter Your Username" ForeColor="Red" ValidationGroup="Apply"></asp:RequiredFieldValidator>  
                     </td>  
                 </tr>
                 <tr>
@@ -37,7 +40,7 @@
                     <td colspan="2"><asp:Label ID="Label1" runat="server">&nbsp;</asp:Label></td>
                 </tr>
                 <tr>
-                    <td><asp:Button ID="Button1" runat="server" Text="Log In" onclick="Button1_Click" /></td>
+                    <td><asp:Button ID="Button1" runat="server" Text="Log In" onclick="Button1_Click" ValidationGroup="Apply" /></td>
                 </tr>
                 <tr style="display: none;">  
                     <td class="style2">SessionID = <asp:Label ID="label2" runat="server" Text="sessionId" /></td> 
