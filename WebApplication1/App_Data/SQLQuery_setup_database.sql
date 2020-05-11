@@ -45,3 +45,5 @@ CREATE TABLE [dbo].[Users]
 )
 
 INSERT INTO [dbo].[Users] ([username], [password], [admin]) VALUES ('administrator', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', 1)
+
+ALTER TABLE [dbo].[Computers] ADD [anydesk] VARCHAR (50);

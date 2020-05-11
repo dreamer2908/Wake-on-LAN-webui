@@ -51,27 +51,33 @@
                 </tr>
                 <tr>
                     <td>Owner:</td>
-                    <td><asp:TextBox ID="txtNewUsername" runat="server" Text="prsvn"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtNewUsername" runat="server" Text="prsvn" MaxLength="50"></asp:TextBox></td>
                 </tr>
                 <tr>
                     <td>PC Name:</td>
-                    <td><asp:TextBox ID="txtNewPcName" runat="server" Text="PC-xxx"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtNewPcName" runat="server" Text="PC-xxx" MaxLength="50"></asp:TextBox></td>
                 </tr>
                 <tr>
                     <td>IP Address:</td>
-                    <td><asp:TextBox ID="txtNewIpAddress" runat="server" Text="172.21.160.100"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtNewIpAddress" runat="server" Text="172.21.160.100" MaxLength="50"></asp:TextBox></td>
                     <td><asp:LinkButton ID="btnGetIpFromPcName" runat="server" Text="Get from PC Name" OnClick="btnGetIpFromPcName_Click"></asp:LinkButton></td>
                     <td><asp:Label ID="lblErrorGetIpFromPcName" runat="server" Text="" ForeColor="Red"></asp:Label></td>
                 </tr>
                 <tr>
                     <td>Subnet Mask:</td>
-                    <td><asp:TextBox ID="txtNewIpSubnet" runat="server" Text="255.255.255.0"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtNewIpSubnet" runat="server" Text="255.255.255.0" MaxLength="50"></asp:TextBox></td>
                 </tr>
                 <tr>
                     <td>MAC Address:</td>
-                    <td><asp:TextBox ID="txtNewMacAddress" runat="server" Text="00-00-00-00-00-00"></asp:TextBox></td>
+                    <td><asp:TextBox ID="txtNewMacAddress" runat="server" Text="00-00-00-00-00-00" MaxLength="50"></asp:TextBox></td>
                     <td><asp:LinkButton ID="btnGetMacFromIp" runat="server" Text="Get from IP Address" OnClick="btnGetMacFromIp_Click" ></asp:LinkButton></td>
                     <td><asp:Label ID="lblErrorGetMacFromIp" runat="server" Text="" ForeColor="Red"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td>AnyDesk ID:</td>
+                    <td><asp:TextBox ID="txtNewAnyDeskId" runat="server" Text="" MaxLength="50"></asp:TextBox></td>
+                    <td><asp:LinkButton ID="btnGetAnyDeskId" runat="server" Text="Get AnyDesk ID from PC" OnClick="btnGetAnyDeskId_Click" ></asp:LinkButton></td>
+                    <td><asp:Label ID="lblErrorGetAnyDesk" runat="server" Text="" ForeColor="Red"></asp:Label></td>
                 </tr>
                 <tr>
                     <td><asp:Button ID="btnAddNewPc" runat="server" Text="Add" onclick="btnAddNewPc_Click" /></td>
@@ -80,7 +86,7 @@
             <p>&nbsp;</p>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 CancelSelectOnNullParameter="false" 
-                SelectCommand="SELECT id, username, name, ip, subnet, mac FROM Computers ORDER BY id"
+                SelectCommand="SELECT id, username, name, ip, subnet, mac, anydesk FROM Computers ORDER BY id"
                 DeleteCommand="DELETE FROM Computers where id=@id"
                 UpdateCommand="
 DECLARE @new_name VARCHAR(50) = @name;
@@ -91,7 +97,7 @@ DECLARE @i INT = 0;
 WHILE (@x = 0)
 BEGIN
 	BEGIN TRY
-		UPDATE [dbo].[Computers] SET username=@username, name=@new_name, ip=@ip, subnet=@subnet, mac=@mac WHERE id=@id
+		UPDATE [dbo].[Computers] SET username=@username, name=@new_name, ip=@ip, subnet=@subnet, mac=@mac, anydesk=@anydesk WHERE id=@id
 		SET @x = 1;
 	END TRY
 	BEGIN CATCH
@@ -111,6 +117,7 @@ END
                     <asp:Parameter Name="ip" Type="String" />
                     <asp:Parameter Name="subnet" Type="String" />
                     <asp:Parameter Name="mac" Type="String" />
+                    <asp:Parameter Name="anydesk" Type="String" />
                 </UpdateParameters>
             </asp:SqlDataSource>
             <asp:GridView CssClass="fullborder" ID="ComputersGridView" runat="server"
@@ -126,6 +133,7 @@ END
                     <asp:BoundField DataField="ip" HeaderText="IP Address" />
                     <asp:BoundField DataField="subnet" HeaderText="Subnet Mask" />
                     <asp:BoundField DataField="mac" HeaderText="MAC Address" />
+                    <asp:BoundField DataField="anydesk" HeaderText="AnyDesk ID" />
                     <asp:TemplateField ShowHeader="false">
                         <ItemTemplate>
                             <asp:Button ID="btnGridRowEdit" runat="server" CausesValidation="false" CommandName="Edit" Text="Edit"/>

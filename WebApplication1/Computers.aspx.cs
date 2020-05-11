@@ -85,13 +85,15 @@ namespace WebApplication1
             string newIp = txtNewIpAddress.Text;
             string newSubnet = txtNewIpSubnet.Text;
             string newMac = txtNewMacAddress.Text;
+            string newAnydesk = txtNewAnyDeskId.Text;
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO Computers ([username], [name], [ip], [subnet], [mac]) VALUES (@username, @name, @ip, @subnet, @mac)");
+            SqlCommand cmd = new SqlCommand("INSERT INTO Computers ([username], [name], [ip], [subnet], [mac], [anydesk]) VALUES (@username, @name, @ip, @subnet, @mac, @anydesk)");
             cmd.Parameters.AddWithValue("@username", newUsername);
             cmd.Parameters.AddWithValue("@name", newPcName);
             cmd.Parameters.AddWithValue("@ip", newIp);
             cmd.Parameters.AddWithValue("@subnet", newSubnet);
             cmd.Parameters.AddWithValue("@mac", newMac);
+            cmd.Parameters.AddWithValue("@anydesk", newAnydesk);
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
@@ -175,6 +177,26 @@ namespace WebApplication1
                     var api = new Controllers.WolController();
                     api.Get(mac, ip, subnet, username, pcname, sendToMode);
                 }
+            }
+        }
+
+        protected void btnGetAnyDeskId_Click(object sender, EventArgs e)
+        {
+            string ip = txtNewIpAddress.Text;
+            bool found = false;
+
+            // TODO: find a way to do
+            found = false;
+            string id = string.Empty;
+
+            if (found)
+            {
+                txtNewAnyDeskId.Text = id;
+                lblErrorGetAnyDesk.Text = string.Empty;
+            }
+            else
+            {
+                lblErrorGetAnyDesk.Text = "Not implemented.";
             }
         }
     }

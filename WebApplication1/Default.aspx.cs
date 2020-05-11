@@ -63,7 +63,7 @@ namespace WebApplication1
             string sendToMode = common.readSettingDatabase("sendto", 0, 0, 3).ToString();
             string countdown = common.readSettingDatabase("countdown", 100, 0, 65536).ToString();
 
-            pcTable.Rows.Clear();
+            while (pcTable.Rows.Count > 1) pcTable.Rows.RemoveAt(1);
 
             foreach (DataRow pc in dt.Rows)
             {
@@ -71,6 +71,8 @@ namespace WebApplication1
                 string ip = pc.ItemArray[3].ToString();
                 string subnet = pc.ItemArray[4].ToString();
                 string mac = pc.ItemArray[5].ToString();
+                string anydesk = pc.ItemArray[6].ToString();
+
                 TableRow row = new TableRow();
                 // icon
                 TableCell cell0 = new TableCell();
@@ -92,6 +94,10 @@ namespace WebApplication1
                 TableCell cell4 = new TableCell();
                 cell4.Text = mac;
                 row.Cells.Add(cell4);
+                // anydesk
+                TableCell cellAnyDesk = new TableCell();
+                cellAnyDesk.Text = anydesk;
+                row.Cells.Add(cellAnyDesk);
 
                 // action
                 String uuid = Guid.NewGuid().ToString().Replace("-", string.Empty);

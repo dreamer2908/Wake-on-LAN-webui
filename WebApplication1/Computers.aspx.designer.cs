@@ -184,6 +184,33 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Label lblErrorGetMacFromIp;
         
         /// <summary>
+        /// txtNewAnyDeskId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNewAnyDeskId;
+        
+        /// <summary>
+        /// btnGetAnyDeskId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnGetAnyDeskId;
+        
+        /// <summary>
+        /// lblErrorGetAnyDesk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorGetAnyDesk;
+        
+        /// <summary>
         /// btnAddNewPc control.
         /// </summary>
         /// <remarks>

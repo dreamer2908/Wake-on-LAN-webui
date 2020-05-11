@@ -156,14 +156,15 @@
         <%--<button id="ft" data-ip="172.21.160.244" onclick="countDown('ft', 'Waiting ', 100); getHostStatus('ft'); return false;">Wake Up</button>--%>
         <asp:CheckBox ID="chbShowAllPcs" Text="Show All Computers From All Users" runat="server" Checked="false" OnCheckedChanged="chbShowAllPcs_CheckedChanged" AutoPostBack="true" Visible="false"></asp:CheckBox>
         <asp:Table ID="pcTable" runat="server" style="margin-left: 0; margin-right: auto;">
-            <asp:TableRow style="font-weight: bold;">
+            <asp:TableHeaderRow style="font-weight: bold;">
                 <asp:TableCell>Status</asp:TableCell>
                 <asp:TableCell>PC Name</asp:TableCell>
                 <asp:TableCell>IP Address</asp:TableCell>
                 <asp:TableCell>Subnet</asp:TableCell>
                 <asp:TableCell>MAC Address</asp:TableCell>
+                <asp:TableCell>AnyDesk ID</asp:TableCell>
                 <asp:TableCell>Action</asp:TableCell>
-            </asp:TableRow>
+            </asp:TableHeaderRow>
         </asp:Table>
         <iframe id="my_iframe" style="display:none;"></iframe>
     </form>
