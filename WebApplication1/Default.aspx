@@ -154,7 +154,7 @@
             &nbsp;[<asp:LinkButton ID="lnkToContact" runat="server" Text="Contact" OnClick="lnkToContact_Click"></asp:LinkButton>]
         </p>
         <%--<button id="ft" data-ip="172.21.160.244" onclick="countDown('ft', 'Waiting ', 100); getHostStatus('ft'); return false;">Wake Up</button>--%>
-        <asp:CheckBox ID="chbShowAllPcs" Text="Show All Computers From All Users" runat="server" Checked="false" OnCheckedChanged="chbShowAllPcs_CheckedChanged" AutoPostBack="true"></asp:CheckBox>
+        <asp:CheckBox ID="chbShowAllPcs" Text="Show All Computers From All Users" runat="server" Checked="false" OnCheckedChanged="chbShowAllPcs_CheckedChanged" AutoPostBack="true" Visible="false"></asp:CheckBox>
         <asp:Table ID="pcTable" runat="server" style="margin-left: 0; margin-right: auto;">
             <asp:TableRow style="font-weight: bold;">
                 <asp:TableCell>Status</asp:TableCell>

@@ -30,7 +30,7 @@ namespace WebApplication1
 
                 // display the manage link if it's an admin
                 spanAdminLink.Visible = isAdmin;
-                chbShowAllPcs.Visible = isAdmin;
+                // chbShowAllPcs.Visible = isAdmin;
 
                 loadPcList(username);
             }
