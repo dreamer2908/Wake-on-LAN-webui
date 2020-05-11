@@ -61,8 +61,9 @@
 
                 if (status == "0") { // stop when the host is online
                     document.getElementById(buttonId).setAttribute("data-continue", "0");
-                    document.getElementById(buttonId).textContent = "Online!";
+                    document.getElementById(buttonId).textContent = "Online! Open AnyDesk.";
                     document.getElementById(buttonId).className = "ok";
+                    document.getElementById(buttonId).setAttribute("onclick", "openAnyDeskPopup('" + buttonId + "'); return false;");
                 }
                 else
                 {
@@ -129,6 +130,11 @@
         function openContactPopup(buttonId) {
             var url = document.getElementById(buttonId).getAttribute("data-contact-url");
             openPopupWindow(url, "Contact");
+        }
+
+        function openAnyDeskPopup(buttonId) {
+            var url = document.getElementById(buttonId).getAttribute("data-anydesk-url");
+            openPopupWindow(url, "AnyDesk");
         }
 
         function openPopupWindow(url, title) {
