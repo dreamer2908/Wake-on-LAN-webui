@@ -72,11 +72,12 @@ namespace WebApplication1
                 string subnet = pc.ItemArray[4].ToString();
                 string mac = pc.ItemArray[5].ToString();
                 string anydesk = pc.ItemArray[6].ToString();
+                String uuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
 
                 TableRow row = new TableRow();
                 // icon
                 TableCell cell0 = new TableCell();
-                cell0.Text = string.Format("<img class='reload' data-src='/api/ping?ip={0}' src='/api/ping?ip={0}' />", ip);
+                cell0.Text = string.Format("<img class='reload' data-src='/api/ping?ip={0}' src='/Images/blank-32.png' id='img-{1}' data-ip='{0}' data-ping-status='' />", ip, uuid);
                 row.Cells.Add(cell0);
                 // pc name
                 TableCell cell1 = new TableCell();
@@ -100,7 +101,6 @@ namespace WebApplication1
                 row.Cells.Add(cellAnyDesk);
 
                 // action
-                String uuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
                 TableCell cell5 = new TableCell();
                 string wolurl = string.Format("/api/wol?mac={0}&ip={1}&subnet={2}&pcname={3}&username={4}&sendto={5}", mac, ip, subnet, pcname, username, sendToMode);
                 string contacturl = string.Format("/Contact.aspx?username={2}&name={2}&message=My%20computer%20won%27t%20wake%20up.%20Name%20%3D%20{3}.%20IP%20%3D%20{1}.%20MAC%20%3D%20{4}.&subject=Computer%20{3}%20Failed", uuid, ip, username, pcname, mac);

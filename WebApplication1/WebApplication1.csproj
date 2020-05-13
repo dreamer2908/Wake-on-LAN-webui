@@ -89,6 +89,7 @@
     <Content Include="App_Data\SQLQuery_setup_database.sql" />
     <Content Include="Contact.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Images\blank-32.png" />
     <Content Include="Images\ok-32.png" />
     <Content Include="Images\warning-32.png" />
     <Content Include="Log.aspx" />

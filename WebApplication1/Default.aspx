@@ -43,7 +43,33 @@
                 images[i].src = images[i].getAttribute("data-src") + '&rand=' + Math.random();
             }
         };
-        setInterval(autoreloadimages, 5000);
+
+        function autoRefreshPingStatus() {
+            var images = document.getElementsByClassName('reload');
+            for (var i = 0; i < images.length; i++) {
+                getPingResult(images[i].id);
+            }
+        };
+        autoRefreshPingStatus();
+        setInterval(autoRefreshPingStatus, 5000);
+
+        function autoUpdatePingStatus() {
+            var images = document.getElementsByClassName('reload');
+            for (var i = 0; i < images.length; i++) {
+                status = images[i].getAttribute("data-ping-status");
+                if (status == "") {
+                    images[i].src = "/Images/blank-32.png";
+                }
+                else if (status == "0") {
+                    images[i].src = "/Images/ok-32.png";
+                }
+                else
+                {
+                    images[i].src = "/Images/warning-32.png";
+                }
+            }
+        };
+        setInterval(autoUpdatePingStatus, 1000);
 
         const delay = ms => new Promise(res => setTimeout(res, ms));
         const countDown = async (buttonId, pretext, max) => {
