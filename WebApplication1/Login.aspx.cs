@@ -18,10 +18,13 @@ namespace WebApplication1
             string sessionId = this.Session.SessionID;
             label2.Text = sessionId;
 
-            // get domain display name from web.config
-            string domainName = WebConfigurationManager.ConnectionStrings["domainName"].ConnectionString;
-            ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + " User";
-            ddlAuthentication.SelectedValue = common.readSettingDatabase("authentication", 0, 0, 1).ToString();
+            if (!IsPostBack)
+            {
+                // get domain display name from web.config
+                string domainName = WebConfigurationManager.ConnectionStrings["domainName"].ConnectionString;
+                ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + " User";
+                ddlAuthentication.SelectedValue = common.readSettingDatabase("authentication", 0, 0, 1).ToString();
+            }
         }
 
         private static bool checkWebsiteLogin(string username, string _password, ref bool isAdmin)
