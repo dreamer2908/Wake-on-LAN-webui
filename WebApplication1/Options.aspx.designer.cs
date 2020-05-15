@@ -112,6 +112,15 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.DropDownList ddlAuthentication;
         
         /// <summary>
+        /// chbDisplayShowAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chbDisplayShowAll;
+        
+        /// <summary>
         /// ddlSendWolPackageTo control.
         /// </summary>
         /// <remarks>

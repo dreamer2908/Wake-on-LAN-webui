@@ -53,6 +53,9 @@ namespace WebApplication1
                 string domainName = WebConfigurationManager.ConnectionStrings["domainName"].ConnectionString;
                 ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + " User";
                 ddlAuthentication.SelectedValue = common.readSettingDatabase("authentication", 0, 0, 1).ToString();
+
+                bool displayShowAll = common.readSettingDatabase("displayShowAll", false);
+                chbDisplayShowAll.Checked = displayShowAll;
             }
         }
 
@@ -107,6 +110,9 @@ namespace WebApplication1
         {
             string authentication = ddlAuthentication.SelectedItem.Value;
             common.writeSettingDatabase("authentication", authentication);
+
+            bool displayShowAll = chbDisplayShowAll.Checked;
+            common.writeSettingDatabase("displayShowAll", displayShowAll);
 
             string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
             common.writeSettingDatabase("sendto", sendWolTo);
