@@ -62,6 +62,10 @@
                     <td>Display the “Show All Computers” button for admins: </td>
                     <td><asp:CheckBox ID="chbDisplayShowAll" runat="server"></asp:CheckBox></td>
                 </tr>
+                <tr>
+                    <td>Verbose: </td>
+                    <td><asp:CheckBox ID="chbVerbose" runat="server"></asp:CheckBox></td>
+                </tr>
             </table>
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">

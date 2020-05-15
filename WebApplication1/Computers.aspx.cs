@@ -142,14 +142,25 @@ namespace WebApplication1
         {
             string id = e.CommandArgument.ToString();
             Sessions.readSession(this.Session.SessionID, out Sessions.session ses);
+            bool verbose = common.readSettingDatabase("verbose", false);
 
             if (e.CommandName == "Delete")
             {
                 common.writeLog(ses.username, "Computers", "Delete computer id = " + id);
+
+                if (verbose)
+                {
+                    Response.Write("<script>alert('Deleted OK!');</script>");
+                }
             }
             else if (e.CommandName == "Update")
             {
                 common.writeLog(ses.username, "Computers", "Update computer id = " + id);
+
+                if (verbose)
+                {
+                    Response.Write("<script>alert('Saved OK!');</script>");
+                }
             }
             else if (e.CommandName == "Wake")
             {
@@ -176,6 +187,11 @@ namespace WebApplication1
                     // call the api without going through web address
                     var api = new Controllers.WolController();
                     api.Get(mac, ip, subnet, username, pcname, sendToMode);
+                }
+
+                if (verbose)
+                {
+                    Response.Write("<script>alert('Sent OK!');</script>");
                 }
             }
         }

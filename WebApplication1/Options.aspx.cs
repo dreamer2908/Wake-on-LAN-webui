@@ -56,6 +56,9 @@ namespace WebApplication1
 
                 bool displayShowAll = common.readSettingDatabase("displayShowAll", false);
                 chbDisplayShowAll.Checked = displayShowAll;
+
+                bool verbose = common.readSettingDatabase("verbose", false);
+                chbVerbose.Checked = verbose;
             }
         }
 
@@ -113,6 +116,9 @@ namespace WebApplication1
 
             bool displayShowAll = chbDisplayShowAll.Checked;
             common.writeSettingDatabase("displayShowAll", displayShowAll);
+
+            bool verbose = chbVerbose.Checked;
+            common.writeSettingDatabase("verbose", verbose);
 
             string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
             common.writeSettingDatabase("sendto", sendWolTo);
