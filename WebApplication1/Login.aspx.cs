@@ -34,7 +34,7 @@ namespace WebApplication1
 
             string password = common.getSha1HashFromText(_password);
 
-            SqlCommand cmd = new SqlCommand("SELECT [username], [password], [admin] FROM [dbo].[Users] WHERE [username] = @username AND [password] = @password;");
+            SqlCommand cmd = new SqlCommand("SELECT [username], [password], [admin] FROM [dbo].[Users] WHERE [username] = @username COLLATE SQL_Latin1_General_CP1_CI_AS AND [password] = @password COLLATE SQL_Latin1_General_CP1_CI_AS;");
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@password", password);
 
