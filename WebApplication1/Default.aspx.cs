@@ -51,7 +51,7 @@ namespace WebApplication1
             sb.AppendLine("<script  type='text/javascript'>");
 
             // read list of PCs
-            string sqlcommand = "SELECT * FROM Computers WHERE username=@username ORDER BY id";
+            string sqlcommand = "SELECT * FROM Computers WHERE username=@username COLLATE SQL_Latin1_General_CP1_CI_AS ORDER BY id";
             if (chbShowAllPcs.Checked && canShowAllPc())
             {
                 sqlcommand = "SELECT * FROM Computers ORDER BY id";
