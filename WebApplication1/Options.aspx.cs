@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -48,6 +49,10 @@ namespace WebApplication1
                 txtUsername.Text = email_user;
                 txtPassword.Attributes["value"] = email_password;
                 txtSubject.Text = email_subject;
+
+                string domainName = WebConfigurationManager.ConnectionStrings["domainName"].ConnectionString;
+                ddlAuthentication.Items[0].Text = (domainName ?? "Domain") + " User";
+                ddlAuthentication.SelectedValue = common.readSettingDatabase("authentication", 0, 0, 1).ToString();
             }
         }
 
@@ -100,6 +105,9 @@ namespace WebApplication1
 
         protected void btnApplyOptions_Click(object sender, EventArgs e)
         {
+            string authentication = ddlAuthentication.SelectedItem.Value;
+            common.writeSettingDatabase("authentication", authentication);
+
             string sendWolTo = ddlSendWolPackageTo.SelectedItem.Value;
             common.writeSettingDatabase("sendto", sendWolTo);
 

@@ -47,6 +47,21 @@
             <p>&nbsp;</p>
             <table style="margin-left: 0; margin-right: auto; border: none;">
                 <tr>
+                    <td><b>General</b></td>
+                </tr>
+                <tr>
+                    <td>Default Authentication:</td>
+                    <td>
+                        <asp:DropDownList ID="ddlAuthentication" runat="server">
+                            <asp:ListItem Text="PRS-VN User" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Website User" Value="1"></asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <table style="margin-left: 0; margin-right: auto; border: none;">
+                <tr>
                     <td><b>Wake-on-LAN</b></td>
                 </tr>
                 <tr>
