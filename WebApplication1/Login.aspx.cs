@@ -49,29 +49,38 @@ namespace WebApplication1
             return isValid;
         }
 
-        private static bool checkDomainLogin(string username, string password, ref bool isAdmin)
+        private static bool checkDomainLogin(string username, string password, ref bool isAdmin, ref string error)
         {
             bool isValid;
             // create a "principal context" - e.g. your domain (could be machine, too)
             string domainServer = WebConfigurationManager.ConnectionStrings["domainServer"].ConnectionString;
             string domainUsername = WebConfigurationManager.ConnectionStrings["domainUsername"].ConnectionString;
             string domainPassword = WebConfigurationManager.ConnectionStrings["domainPassword"].ConnectionString;
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domainServer, domainUsername, domainPassword))
-            {
-                // validate the credentials
-                isValid = pc.ValidateCredentials(username, password, ContextOptions.Negotiate);
 
-                if (isValid)
+            try {
+                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domainServer, domainUsername, domainPassword))
                 {
-                    // set as admin if the user is in "Enterprise Admins" group
-                    // won't work unless a valid username and password are specified for the principal context
-                    UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
-                    GroupPrincipal group = GroupPrincipal.FindByIdentity(pc, "Enterprise Admins");
-                    if (user != null && user.IsMemberOf(group))
+                    // validate the credentials
+                    isValid = pc.ValidateCredentials(username, password, ContextOptions.Negotiate);
+
+                    if (isValid)
                     {
-                        isAdmin = true;
+                        // set as admin if the user is in "Enterprise Admins" group
+                        // won't work unless a valid username and password are specified for the principal context
+                        UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
+                        GroupPrincipal group = GroupPrincipal.FindByIdentity(pc, "Enterprise Admins");
+                        if (user != null && user.IsMemberOf(group))
+                        {
+                            isAdmin = true;
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                error = e.ToString();
+                isValid = false;
+                isAdmin = false;
             }
 
             return isValid;
@@ -81,13 +90,14 @@ namespace WebApplication1
         {
             bool isValid = false;
             bool isAdmin = false;
+            string error = string.Empty;
 
             string username = TextBox1.Text;
             string password = TextBox2.Text;
 
             switch (ddlAuthentication.SelectedItem.Value)
             {
-                case "0": isValid = checkDomainLogin(username, password, ref isAdmin); break;
+                case "0": isValid = checkDomainLogin(username, password, ref isAdmin, ref error); break;
                 case "1": isValid = checkWebsiteLogin(username, password, ref isAdmin); break;
             }
 
@@ -101,7 +111,7 @@ namespace WebApplication1
             }
             else
             {
-                common.writeLog(string.Empty, "Login", "Login failure: " + username + ". Authentication = " + ddlAuthentication.SelectedItem.Text);
+                common.writeLog(string.Empty, "Login", string.Format("Login failure: {0}. Authentication: {1}. Error: {2}", username, ddlAuthentication.SelectedItem.Text, error));
                 Label1.Text = "Your username and password is incorrect";
                 Label1.ForeColor = System.Drawing.Color.Red;
             }
