@@ -15,6 +15,11 @@ namespace WebApplication1
         protected void Page_Load(object sender, EventArgs e)
         {
             string sessionId = this.Session.SessionID;
+            // use the session cookie if available
+            if (Request.Cookies["session"] != null)
+            {
+                sessionId = Request.Cookies["session"].Value;
+            }
             Sessions.readSession(sessionId, out Sessions.session ses);
 
             // redirect to login page if either not login or not admin

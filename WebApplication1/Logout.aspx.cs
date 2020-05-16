@@ -11,8 +11,13 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = this.Session.SessionID;
-            Sessions.readSession(id, out Sessions.session ses);
+            string sessionId = this.Session.SessionID;
+            // use the session cookie if available
+            if (Request.Cookies["session"] != null)
+            {
+                sessionId = Request.Cookies["session"].Value;
+            }
+            Sessions.readSession(sessionId, out Sessions.session ses);
             if (ses.isLoggedIn)
             {
                 common.writeLog(ses.username, "Logout", "Logout OK");
@@ -20,6 +25,11 @@ namespace WebApplication1
 
             Sessions.deleteSession(ses);
             this.Session.Abandon();
+
+            // delete the session cookie
+            Response.Cookies["session"].Value = string.Empty;
+            Response.Cookies["session"].Expires = DateTime.Now.AddDays(-1);
+
             Response.Redirect("Login.aspx");
         }
     }

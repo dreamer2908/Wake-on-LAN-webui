@@ -12,9 +12,12 @@ namespace WebApplication1
         protected void Page_Load(object sender, EventArgs e)
         {
             string sessionId = this.Session.SessionID;
+            // use the session cookie if available
+            if (Request.Cookies["session"] != null)
+            {
+                sessionId = Request.Cookies["session"].Value;
+            }
             Sessions.readSession(sessionId, out Sessions.session ses);
-
-            string paramUsername = Request.QueryString["username"] ?? string.Empty;
 
             if (ses.isLoggedIn)
             {
@@ -22,14 +25,6 @@ namespace WebApplication1
                 pLogin.Visible = true;
                 pNotLogin.Visible = false;
                 spanAdminLink.Visible = ses.isAdmin;
-            }
-            else if (!string.IsNullOrEmpty(paramUsername))
-            {
-                // import username from paramenter
-                lblUsername.Text = paramUsername;
-                pLogin.Visible = true;
-                pNotLogin.Visible = false;
-                spanAdminLink.Visible = false;
             }
             else
             {

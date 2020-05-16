@@ -16,6 +16,19 @@ namespace WebApplication1
         protected void Page_Load(object sender, EventArgs e)
         {
             string sessionId = this.Session.SessionID;
+            // use the session cookie if available
+            if (Request.Cookies["session"] != null)
+            {
+                sessionId = Request.Cookies["session"].Value;
+            }
+
+            // back to main if already logged in
+            Sessions.readSession(sessionId, out Sessions.session ses);
+            if (ses.isLoggedIn)
+            {
+                Response.Redirect("Default.aspx");
+            }
+
             label2.Text = sessionId;
 
             if (!IsPostBack)
@@ -107,6 +120,9 @@ namespace WebApplication1
 
                 Sessions.writeSession(sessionId, true, username, isAdmin);
                 common.writeLog(username, "Login", "Login OK. Authentication = " + ddlAuthentication.SelectedItem.Text);
+                //add a session Cookie
+                Response.Cookies["session"].Value = sessionId;
+                Response.Cookies["session"].Expires = DateTime.Now.AddDays(10);
                 Response.Redirect("Default.aspx");
             }
             else
