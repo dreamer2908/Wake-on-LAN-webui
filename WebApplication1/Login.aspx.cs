@@ -64,28 +64,39 @@ namespace WebApplication1
 
         private static bool checkDomainLogin(string username, string password, ref bool isAdmin, ref string error)
         {
-            bool isValid;
             // create a "principal context" - e.g. your domain (could be machine, too)
             string domainServer = WebConfigurationManager.ConnectionStrings["domainServer"].ConnectionString;
             string domainUsername = WebConfigurationManager.ConnectionStrings["domainUsername"].ConnectionString;
             string domainPassword = WebConfigurationManager.ConnectionStrings["domainPassword"].ConnectionString;
 
-            try {
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domainServer, domainUsername, domainPassword))
+            bool isValid = checkDomainLoginSub(username, password, ref isAdmin, ref error, domainServer, domainUsername, domainPassword);
+
+            return isValid;
+        }
+
+        private static bool checkDomainLoginSub(string username, string password, ref bool isAdmin, ref string error, string domainServer, string domainUsername, string domainPassword)
+        {
+            bool isValid;
+            try
+            {
+                // must have a valid username and password for the principal context
+                // otherwise can't verify user's group membership
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, domainServer, domainUsername, domainPassword))
                 {
                     // validate the credentials
-                    isValid = pc.ValidateCredentials(username, password, ContextOptions.Negotiate);
+                    isValid = context.ValidateCredentials(username, password, ContextOptions.Negotiate);
 
                     if (isValid)
                     {
-                        // set as admin if the user is in "Enterprise Admins" group
-                        // won't work unless a valid username and password are specified for the principal context
-                        UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
-                        GroupPrincipal group = GroupPrincipal.FindByIdentity(pc, "Enterprise Admins");
-                        if (user != null && user.IsMemberOf(group))
-                        {
-                            isAdmin = true;
-                        }
+                        // set as admin if the user is an domain administrator
+                        string admin1 = "Enterprise Admins";
+                        string admin2 = "Domain Admins";
+                        string admin3 = "Administrators";
+                        bool isAdmin1 = checkIfUserInGroup(username, context, admin1);
+                        bool isAdmin2 = checkIfUserInGroup(username, context, admin2);
+                        bool isAdmin3 = checkIfUserInGroup(username, context, admin3);
+                        isAdmin = isAdmin1 || isAdmin2 || isAdmin3;
+                        common.writeLog("System", "Authentication", "Checking domain user: " + username + ". isAdmin = " + isAdmin.ToString() + ". Group1 '" + admin1 + "' = " + isAdmin1.ToString() + ". Group2 '" + admin2 + "' = " + isAdmin2.ToString() + ". Group3 '" + admin3 + "' = " + isAdmin3.ToString());
                     }
                 }
             }
@@ -97,6 +108,17 @@ namespace WebApplication1
             }
 
             return isValid;
+        }
+
+        private static bool checkIfUserInGroup(string username, PrincipalContext context, string groupName)
+        {
+            UserPrincipal user = UserPrincipal.FindByIdentity(context, username);
+            if (user == null) return false; // it will be null if the user is from another connected domain, not the main domain on the domain server
+
+            using (PrincipalSearchResult<Principal> groups = user.GetAuthorizationGroups())
+            {
+                return groups.OfType<GroupPrincipal>().Any(g => g.Name.Equals(groupName, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -119,7 +141,7 @@ namespace WebApplication1
                 string sessionId = this.Session.SessionID;
 
                 Sessions.writeSession(sessionId, true, username, isAdmin);
-                common.writeLog(username, "Login", "Login OK. Authentication = " + ddlAuthentication.SelectedItem.Text);
+                common.writeLog(username, "Login", "Login OK. Authentication = " + ddlAuthentication.SelectedItem.Text + ". isAdmin = " + isAdmin.ToString());
                 //add a session Cookie
                 Response.Cookies["session"].Value = sessionId;
                 Response.Cookies["session"].Expires = DateTime.Now.AddDays(10);
