@@ -38,6 +38,7 @@ namespace WebApplication1
 
                 bool displayShowAll = common.readSettingDatabase("displayShowAll", false);
                 chbShowAllPcs.Visible = isAdmin && displayShowAll;
+                displayAsUsernameTool.Visible = isAdmin;
 
                 loadPcList(username);
             }
@@ -172,6 +173,11 @@ namespace WebApplication1
         protected void chbShowAllPcs_CheckedChanged(object sender, EventArgs e)
         {
             loadPcList(string.Empty);
+        }
+
+        protected void btnShowAsUsername_Click(object sender, EventArgs e)
+        {
+            loadPcList(txtUsername.Text);
         }
     }
 }

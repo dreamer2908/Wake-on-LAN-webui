@@ -187,6 +187,10 @@
         </p>
         <%--<button id="ft" data-ip="172.21.160.244" onclick="countDown('ft', 'Waiting ', 100); getHostStatus('ft'); return false;">Wake Up</button>--%>
         <asp:CheckBox ID="chbShowAllPcs" Text="Show All Computers From All Users" runat="server" Checked="false" OnCheckedChanged="chbShowAllPcs_CheckedChanged" AutoPostBack="true" Visible="false"></asp:CheckBox>
+        <p id="displayAsUsernameTool" runat="server">Display as username:
+            <span>&nbsp;<asp:TextBox ID="txtUsername" runat="server" Width="20em"></asp:TextBox></span>
+            <span>&nbsp;<asp:Button ID="btnShowAsUsername" runat="server" Text="Apply" OnClick="btnShowAsUsername_Click" /></span>
+        </p>
         <asp:Table ID="pcTable" runat="server" style="margin-left: 0; margin-right: auto;">
             <asp:TableHeaderRow style="font-weight: bold;">
                 <asp:TableCell>Status</asp:TableCell>
