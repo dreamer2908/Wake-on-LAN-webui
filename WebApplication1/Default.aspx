@@ -37,6 +37,11 @@
 
     </style>
     <script type="text/javascript">
+        function jsNotice() {
+            document.getElementById("lblJsNotice").remove();
+        };
+        window.onload = jsNotice;
+
         function autoreloadimages() {
             var images = document.getElementsByClassName('reload');
             for (var i = 0; i < images.length; i++) {
@@ -188,6 +193,7 @@
             </span>
             &nbsp;[<asp:LinkButton ID="lnkToContact" runat="server" Text="Contact" OnClick="lnkToContact_Click"></asp:LinkButton>]
         </p>
+        <label id="lblJsNotice">Your browser doesn't support or allow Javascript. This page won't work. Please try on another browser or device.</label>
         <%--<button id="ft" data-ip="172.21.160.244" onclick="countDown('ft', 'Waiting ', 100); getHostStatus('ft'); return false;">Wake Up</button>--%>
         <asp:CheckBox ID="chbShowAllPcs" Text="Show All Computers From All Users" runat="server" Checked="false" OnCheckedChanged="chbShowAllPcs_CheckedChanged" AutoPostBack="true" Visible="false"></asp:CheckBox>
         <p id="displayAsUsernameTool" runat="server">Display as username:
