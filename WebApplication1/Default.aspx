@@ -59,13 +59,16 @@
                 status = images[i].getAttribute("data-ping-status");
                 if (status == "") {
                     images[i].src = "/Images/blank-32.png";
+                    images[i].title = images[i].alt = "No status";
                 }
                 else if (status == "0") {
                     images[i].src = "/Images/ok-32.png";
+                    images[i].title = images[i].alt = "Online";
                 }
                 else
                 {
                     images[i].src = "/Images/warning-32.png";
+                    images[i].title = images[i].alt = "Offline";
                 }
             }
         };
