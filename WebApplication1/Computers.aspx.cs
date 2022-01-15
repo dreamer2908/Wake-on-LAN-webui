@@ -33,6 +33,11 @@ namespace WebApplication1
             string username = ses.username;
             lblUsername.Text = username;
 
+            if (btnAddNewPc.Text == "Add")
+            {
+                txtNewUsername.Text = username;
+            }
+
             SqlDataSource1.ConnectionString = WebConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
         }
 
@@ -91,19 +96,52 @@ namespace WebApplication1
             string newSubnet = txtNewIpSubnet.Text;
             string newMac = txtNewMacAddress.Text;
             string newAnydesk = txtNewAnyDeskId.Text;
+            string id = txtComputerId.Text;
+            bool update = (btnAddNewPc.Text == "Update");
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO Computers ([username], [name], [ip], [subnet], [mac], [anydesk]) VALUES (@username, @name, @ip, @subnet, @mac, @anydesk)");
+            SqlCommand cmd;
+            if (update)
+            {
+                cmd = new SqlCommand(@"
+DECLARE @new_name VARCHAR(50) = @name;
+
+                DECLARE @x INT = 0;
+                DECLARE @i INT = 0;
+
+                WHILE(@x = 0)
+BEGIN
+    BEGIN TRY
+        UPDATE[dbo].[Computers] SET username = @username, name = @new_name, ip = @ip, subnet = @subnet, mac = @mac, anydesk = @anydesk WHERE id = @id
+
+        SET @x = 1;
+        END TRY
+
+    BEGIN CATCH
+
+        SET @x = 0;
+        SET @i = @i + 1;
+        SET @new_name = CONCAT(@name, ' (', @i, ')');
+        END CATCH
+END
+                ");
+            }
+            else
+            {
+                cmd = new SqlCommand("INSERT INTO Computers ([username], [name], [ip], [subnet], [mac], [anydesk]) VALUES (@username, @name, @ip, @subnet, @mac, @anydesk)");
+            }
             cmd.Parameters.AddWithValue("@username", newUsername);
             cmd.Parameters.AddWithValue("@name", newPcName);
             cmd.Parameters.AddWithValue("@ip", newIp);
             cmd.Parameters.AddWithValue("@subnet", newSubnet);
             cmd.Parameters.AddWithValue("@mac", newMac);
             cmd.Parameters.AddWithValue("@anydesk", newAnydesk);
+            cmd.Parameters.AddWithValue("@id", id);
 
             int rows = common.queryDatabase(cmd, out DataTable dt);
 
             Sessions.readSession(this.Session.SessionID, out Sessions.session ses);
-            common.writeLog(ses.username, "Computers", string.Format("Add PC username = {0}, pcname = {1}, ip = {2}, mac = {3}", newUsername, newPcName, newIp, newMac));
+            string action = update ? "Update PC id = " + id + "," : "Add PC";
+            common.writeLog(ses.username, "Computers", string.Format("{4} username = {0}, pcname = {1}, ip = {2}, mac = {3}", newUsername, newPcName, newIp, newMac, action));
 
             reloadPage();
         }
@@ -158,13 +196,35 @@ namespace WebApplication1
                     Response.Write("<script>alert('Deleted OK!');</script>");
                 }
             }
-            else if (e.CommandName == "Update")
+            else if (e.CommandName == "Mod")
             {
-                common.writeLog(ses.username, "Computers", "Update computer id = " + id);
+                // read PC info from the database
+                string sqlcommand = "SELECT * FROM Computers WHERE id=@di";
+                SqlCommand cmd = new SqlCommand(sqlcommand);
+                cmd.Parameters.AddWithValue("@di", id);
 
-                if (verbose)
+                int rows = common.queryDatabase(cmd, out DataTable dt);
+
+                if (dt.Rows.Count > 0)
                 {
-                    Response.Write("<script>alert('Saved OK!');</script>");
+                    var pc = dt.Rows[0];
+                    string username = pc.ItemArray[1].ToString();
+                    string pcname = pc.ItemArray[2].ToString();
+                    string ip = pc.ItemArray[3].ToString();
+                    string subnet = pc.ItemArray[4].ToString();
+                    string mac = pc.ItemArray[5].ToString();
+                    string anydesk = pc.ItemArray[6].ToString();
+
+                    // load data to above form
+                    txtNewUsername.Text = username;
+                    txtNewPcName.Text = pcname;
+                    txtNewIpAddress.Text = ip;
+                    txtNewIpSubnet.Text = subnet;
+                    txtNewMacAddress.Text = mac;
+                    txtNewAnyDeskId.Text = anydesk;
+                    txtComputerId.Text = id;
+
+                    btnAddNewPc.Text = "Update";
                 }
             }
             else if (e.CommandName == "Wake")

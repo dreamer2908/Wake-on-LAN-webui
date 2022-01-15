@@ -50,6 +50,10 @@
                     <td colspan="2"><b>Add a new computer:</b></td>
                 </tr>
                 <tr>
+                    <td>ID:</td>
+                    <td><asp:Label ID="txtComputerId" runat="server" Text="(auto)" MaxLength="50"></asp:Label></td>
+                </tr>
+                <tr>
                     <td>Owner:</td>
                     <td><asp:TextBox ID="txtNewUsername" runat="server" Text="prsvn" MaxLength="50"></asp:TextBox></td>
                 </tr>
@@ -88,37 +92,10 @@
                 CancelSelectOnNullParameter="false" 
                 SelectCommand="SELECT id, username, name, ip, subnet, mac, anydesk FROM Computers ORDER BY id"
                 DeleteCommand="DELETE FROM Computers where id=@id"
-                UpdateCommand="
-DECLARE @new_name VARCHAR(50) = @name;
-
-DECLARE @x INT = 0;
-DECLARE @i INT = 0;
-
-WHILE (@x = 0)
-BEGIN
-	BEGIN TRY
-		UPDATE [dbo].[Computers] SET username=@username, name=@new_name, ip=@ip, subnet=@subnet, mac=@mac, anydesk=@anydesk WHERE id=@id
-		SET @x = 1;
-	END TRY
-	BEGIN CATCH
-		SET @x = 0;
-		SET @i = @i + 1;
-		SET @new_name = CONCAT(@name, ' (', @i, ')');
-	END CATCH
-END
-                " >
+                >
                 <DeleteParameters>
                     <asp:ControlParameter ControlID="ComputersGridView" Name="id" PropertyName="SelectedDataKey" />
                 </DeleteParameters>
-                <UpdateParameters>
-                    <asp:Parameter Name="id" Type="String" />
-                    <asp:Parameter Name="username" Type="String" />
-                    <asp:Parameter Name="name" Type="String" />
-                    <asp:Parameter Name="ip" Type="String" />
-                    <asp:Parameter Name="subnet" Type="String" />
-                    <asp:Parameter Name="mac" Type="String" />
-                    <asp:Parameter Name="anydesk" Type="String" />
-                </UpdateParameters>
             </asp:SqlDataSource>
             <asp:GridView CssClass="fullborder" ID="ComputersGridView" runat="server"
                 ShowHeaderWhenEmpty="true"
@@ -136,14 +113,10 @@ END
                     <asp:BoundField DataField="anydesk" HeaderText="AnyDesk ID" />
                     <asp:TemplateField ShowHeader="false">
                         <ItemTemplate>
-                            <asp:Button ID="btnGridRowEdit" runat="server" CausesValidation="false" CommandName="Edit" Text="Edit"/>
+                            <asp:Button ID="btnGridRowEdit" runat="server" CausesValidation="false" CommandName="Mod" Text="Edit" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
                             <asp:Button ID="btnGridRowDelete" runat="server" CausesValidation="false" CommandName="Delete" Text="Delete" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
                             <asp:Button ID="btnGridRowWakeUp" runat="server" CausesValidation="false" CommandName="Wake" Text="Wake Up" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
                         </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:Button ID="btnGridRowUpdate" runat="server" CausesValidation="false" CommandName="Update" Text="Save" OnCommand="btnGridRowDelete_Command" CommandArgument='<%# Eval("id") %>' />
-                            <asp:Button ID="btnGridRowCancel" runat="server" CausesValidation="false" CommandName="Cancel" Text="Cancel" />
-                        </EditItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
